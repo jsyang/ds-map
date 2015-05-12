@@ -1,13 +1,42 @@
 <html>
 <head>
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
     <link rel="stylesheet" href="assets/index.css">
     <script src="assets/jquery.min.js"></script>
     <script src="assets/papaparse.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
 </head>
 <body>
+
+<div id="main">
+    <div class="header">Digital Shoreditch <span class="time">today</span></div>
     <div id="map"></div>
+</div>
+
+<div id="map-cover"></div>
+<div id="controls">
+    <div class="header">I want to see events</div>
+    <div class="when" data-when="all">
+        <div class="label">When</div>
+        <a class="today">Today</a>
+        <a class="tomorrow">Tomorrow</a>
+        <a class="all">All</a>
+    </div>
+
+    <div class="by" data-by="name">
+        <div class="label">By</div>
+        <a class="name">Name</a>
+        <a class="distance">Distance</a>
+        <a class="time">Time</a>
+    </div>
+
+    <div id="results"></div>
+</div>
+
+<div id="details">
+
+</div>
+
 </body>
 <script src="assets/index.js"></script>
 </html>

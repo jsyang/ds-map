@@ -1,9 +1,220 @@
-#map {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    width: 100vw;
-    height: 100vh;
+@font-face {
+    font-family : 'Montserrat';
+    src         : url('./Montserrat-Regular.ttf');
+}
+
+@font-face {
+    font-family : "Montserrat";
+    src         : url('./Montserrat-Bold.ttf');
+    font-weight : bold;
+}
+
+body {
+    overflow : hidden;
+    position : relative;
+    padding  : 0;
+    margin   : 0;
+}
+
+* {
+    font-family : "Montserrat";
+}
+
+#controls,
+#details,
+#main,
+#map-cover {
+    position : absolute;
+    top      : 0;
+    left     : 0;
+    right    : 0;
+    bottom   : 0;
+}
+
+#controls,
+#details {
+    -webkit-transition : transform 0.4s;
+    -moz-transition    : transform 0.4s;
+    -ms-transition     : transform 0.4s;
+    -o-transition      : transform 0.4s;
+    transition         : transform 0.4s;
+}
+
+/** Map Gray Cover **/
+
+#map-cover {
+    background-color   : rgba(215, 215, 215, 0.8);
+    -webkit-transition : opacity 0.4s;
+    -moz-transition    : opacity 0.4s;
+    -ms-transition     : opacity 0.4s;
+    -o-transition      : opacity 0.4s;
+    transition         : opacity 0.4s;
+    opacity            : 0;
+    -webkit-transform  : translate(0px, -9999px);
+    -moz-transform     : translate(0px, -9999px);
+    -ms-transform      : translate(0px, -9999px);
+    -o-transform       : translate(0px, -9999px);
+    transform          : translate(0px, -9999px);
+}
+
+body.show-controls #map-cover {
+    opacity           : 1;
+    -webkit-transform : translate(0px, 0px);
+    -moz-transform    : translate(0px, 0px);
+    -ms-transform     : translate(0px, 0px);
+    -o-transform      : translate(0px, 0px);
+    transform         : translate(0px, 0px);
+}
+
+/** Event Controls **/
+
+#controls {
+    -webkit-transform : translate(calc(-100%), 0px);
+    -moz-transform    : translate(calc(-100%), 0px);
+    -ms-transform     : translate(calc(-100%), 0px);
+    -o-transform      : translate(calc(-100%), 0px);
+    transform         : translate(calc(-100%), 0px);
+}
+
+#controls {
+    background-color : #ffffff;
+}
+
+#controls .header {
+    background-color : #282828;
+    color            : white;
+    height           : 64px;
+    line-height      : 64px;
+    text-align       : center;
+    cursor           : pointer;
+}
+
+#controls .header::after {
+    display     : block;
+    content     : '×';
+    font-size   : 24px;
+    position    : absolute;
+    top         : 0;
+    right       : 0;
+    width       : 64px;
+    height      : 64px;
+    line-height : 64px;
+    text-align  : center;
+}
+
+#controls .when,
+#controls .by {
+    position    : relative;
+    height      : 48px;
+    line-height : 48px;
+    padding     : 0 0 0 12px;
+}
+
+#controls .when .label,
+#controls .by .label {
+    display     : inline-block;
+    width       : 50px;
+    font-weight : bold;
+}
+
+#controls a {
+    display  : inline-block;
+    height   : 100%;
+    position : relative;
+    cursor   : pointer;
+}
+
+#controls .by[data-by="time"] a.time:after,
+#controls .by[data-by="name"] a.name:after,
+#controls .by[data-by="distance"] a.distance:after,
+#controls .when[data-when="all"] a.all:after,
+#controls .when[data-when="tomorrow"] a.tomorrow:after,
+#controls .when[data-when="today"] a.today:after {
+    display          : block;
+    content          : '';
+    background-color : #282828;
+    position         : absolute;
+    width            : 100%;
+    bottom           : 8px;
+    left             : 0;
+    height           : 4px;
+}
+
+#controls .when a:not(:first-child),
+#controls .by a:not(:first-child) {
+    margin-left : 10px;
+}
+
+#controls #results {
+    border-top : 1px solid #282828;
+    box-sizing : border-box;
+    position   : absolute;
+    top        : 180px;
+    bottom     : 0;
+    left       : 0;
+    right      : 0;
+    overflow   : auto;
+}
+
+#controls #results .result {
+    min-height    : 64px;
+    padding       : 10px;
+    border-bottom : 1px solid #e4e4e4;
+}
+
+#controls #results .result:last-child {
+    border-bottom : 0;
+}
+
+#controls #results .result .title {
+    font-weight : bold;
+}
+
+#controls #results .result .time {
+    font-size : 14px;
+}
+
+/** Event Details **/
+
+#details {
+    -webkit-transform : translate(calc(100%), 0px);
+    -moz-transform    : translate(calc(100%), 0px);
+    -ms-transform     : translate(calc(100%), 0px);
+    -o-transform      : translate(calc(100%), 0px);
+    transform         : translate(calc(100%), 0px);
+}
+
+/* Main section */
+
+#main {
+    overflow : hidden;
+}
+
+#main #map {
+    position : absolute;
+    top      : 64px;
+    bottom   : 0;
+    left     : 0;
+    right    : 0;
+}
+
+#main .header {
+    position         : absolute;
+    top              : 0;
+    bottom           : 64px;
+    left             : 0;
+    right            : 0;
+    line-height      : 64px;
+    text-align       : center;
+    background-color : #282828;
+    color            : white;
+    font-weight      : bold;
+}
+
+body.show-controls #controls {
+    -webkit-transform : translate(0px, 0px);
+    -moz-transform    : translate(0px, 0px);
+    -ms-transform     : translate(0px, 0px);
+    -o-transform      : translate(0px, 0px);
+    transform         : translate(0px, 0px);
 }
