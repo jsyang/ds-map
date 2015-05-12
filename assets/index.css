@@ -141,6 +141,11 @@ body.show-controls #map-cover {
     font-size : 12px;
 }
 
+#controls a.selected {
+    color            : #dfdfdf;
+    background-color : #4a4a4a;
+}
+
 #controls a:first-child {
     border-left : 1px solid #282828;
 }
