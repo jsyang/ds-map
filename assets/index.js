@@ -1,9 +1,12 @@
 var dsmap = {
-    activeInfoWindows : []
+    activeInfoWindows : [],
+
+    directionsService : new google.maps.DirectionsService(),
+    currentLatLong : null,
+    activeLatLong : null
 };
 
 function onCSV(res) {
-
     res.data.forEach(function(event){
         var infoWindow = new google.maps.InfoWindow({
             content: (
@@ -21,15 +24,37 @@ function onCSV(res) {
             position: latLong,
             map: dsmap.map,
             icon: icon
-            //title: .name
         });
 
         google.maps.event.addListener(marker, 'click', function() {
           closeAllInfoWindows();
           infoWindow.open(dsmap.map, marker);
           dsmap.activeInfoWindows.push(infoWindow);
+          dsmap.activeLatLong = latLong;
+
+          showWalkingDirections();
         });
     });
+
+    addCurrentLocationMarker();
+}
+
+function showWalkingDirections() {
+    var start = dsmap.currentLatLong;
+    var end = dsmap.activeLatLong;
+    if(start && end) {
+        dsmap.directions.setMap(dsmap.map);
+      var request = {
+          origin: start,
+          destination:end,
+          travelMode: google.maps.TravelMode.WALKING
+      };
+      dsmap.directionsService.route(request, function(response, status) {
+        if (status == google.maps.DirectionsStatus.OK) {
+          dsmap.directions.setDirections(response);
+        }
+      });
+    }
 }
 
 function closeAllInfoWindows() {
@@ -38,6 +63,22 @@ function closeAllInfoWindows() {
     });
 
     dsmap.activeInfoWindows = [];
+    
+    dsmap.directions.setMap(null);
+}
+
+function addCurrentLocationMarker(){
+    if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            var latLong = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+            var marker = new google.maps.Marker({
+                position: latLong,
+                map: dsmap.map
+            });
+
+            dsmap.currentLatLong = latLong;
+        });
+    }
 }
 
 google.maps.event.addDomListener(window, 'load', function() {
@@ -68,6 +109,11 @@ google.maps.event.addDomListener(window, 'load', function() {
 
     var map = new google.maps.Map(document.getElementById("map"), mapOptions);
     google.maps.event.addListener(map, 'click', closeAllInfoWindows);
+
+    var directions = new google.maps.DirectionsRenderer();
+    directions.setMap(map);
+
+    dsmap.directions = directions;
     dsmap.map = map;
 
     Papa.parse('assets/index.csv', {
