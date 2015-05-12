@@ -1,13 +1,55 @@
 <html>
 <head>
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
     <link rel="stylesheet" href="assets/index.css">
     <script src="assets/jquery.min.js"></script>
     <script src="assets/papaparse.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
+    <title>Digital Shoreditch Open Houses</title>
 </head>
 <body>
+
+<div id="main">
+    <div class="header">Digital Shoreditch <span class="time">today</span></div>
     <div id="map"></div>
+</div>
+
+<div id="map-cover"></div>
+<div id="controls">
+    <div class="header">I want to see events</div>
+    <div class="when">
+        <div class="days">
+            <a class="date selected" data-date="15">15</a>
+            <a class="date" data-date="16">16</a>
+            <a class="date" data-date="17">17</a>
+            <a class="date" data-date="18">18</a>
+            <a class="date" data-date="19">19</a>
+            <a class="date" data-date="20">20</a>
+            <a class="date" data-date="21">21</a>
+            <a class="date" data-date="22">22</a>
+            <a class="date" data-date="23">23</a>
+            <a class="date" data-date="24">24</a>
+        </div>
+    </div>
+
+    <div id="results"></div>
+</div>
+
+<div id="details">
+    <div class="content">
+        <img>
+
+        <div class="title"></div>
+        <div class="time"></div>
+        <div class="location"></div>
+        <div class="about"></div>
+    </div>
+    <div class="actions">
+        <div class="tweet">Share on Twitter</div>
+        <div class="gmaps">Open in Google Maps</div>
+    </div>
+</div>
+
 </body>
 <script src="assets/index.js"></script>
 </html>
