@@ -57,7 +57,8 @@ body {
     transform          : translate(0px, -9999px);
 }
 
-body.show-controls #map-cover {
+body.show-controls #map-cover,
+body.show-details #map-cover {
     opacity           : 1;
     -webkit-transform : translate(0px, 0px);
     -moz-transform    : translate(0px, 0px);
@@ -69,6 +70,8 @@ body.show-controls #map-cover {
 /** Event Controls **/
 
 #controls {
+    background-color : #ffffff;
+
     -webkit-transform : translate(calc(-100%), 0px);
     -moz-transform    : translate(calc(-100%), 0px);
     -ms-transform     : translate(calc(-100%), 0px);
@@ -76,8 +79,12 @@ body.show-controls #map-cover {
     transform         : translate(calc(-100%), 0px);
 }
 
-#controls {
-    background-color : #ffffff;
+body.show-controls #controls {
+    -webkit-transform : translate(0px, 0px);
+    -moz-transform    : translate(0px, 0px);
+    -ms-transform     : translate(0px, 0px);
+    -o-transform      : translate(0px, 0px);
+    transform         : translate(0px, 0px);
 }
 
 #controls .header {
@@ -182,11 +189,72 @@ body.show-controls #map-cover {
 /** Event Details **/
 
 #details {
+    box-sizing       : content-box;
+    left             : 48px;
+    background-color : #ffffff;
     -webkit-transform : translate(calc(100%), 0px);
     -moz-transform    : translate(calc(100%), 0px);
     -ms-transform     : translate(calc(100%), 0px);
     -o-transform      : translate(calc(100%), 0px);
     transform         : translate(calc(100%), 0px);
+}
+
+body.show-details #details {
+    -webkit-transform : translate(0px, 0px);
+    -moz-transform    : translate(0px, 0px);
+    -ms-transform     : translate(0px, 0px);
+    -o-transform      : translate(0px, 0px);
+    transform         : translate(0px, 0px);
+}
+
+#details .content {
+    position   : absolute;
+    top        : 0;
+    left       : 0;
+    right      : 0;
+    bottom     : 144px;
+    overflow   : auto;
+    padding    : 24px;
+    text-align : center;
+}
+
+#details .content div {
+    text-align : left;
+}
+
+#details .title {
+    margin-top  : 12px;
+    font-size   : 18px;
+    font-weight : bold;
+}
+
+#details .time {
+    margin-top : 12px;
+    font-size  : 14px;
+}
+
+#details .location,
+#details .about {
+    margin-top : 16px;
+}
+
+#details .actions {
+    position : absolute;
+    left     : 0;
+    right    : 0;
+    bottom   : 0;
+    height   : 144px;
+}
+
+#details .actions .tweet,
+#details .actions .gmaps {
+    cursor           : pointer;
+    height           : 36px;
+    line-height      : 36px;
+    margin           : 24px;
+    text-align       : center;
+    background-color : #282828;
+    color            : white;
 }
 
 /* Main section */
@@ -214,12 +282,4 @@ body.show-controls #map-cover {
     background-color : #282828;
     color            : white;
     font-weight      : bold;
-}
-
-body.show-controls #controls {
-    -webkit-transform : translate(0px, 0px);
-    -moz-transform    : translate(0px, 0px);
-    -ms-transform     : translate(0px, 0px);
-    -o-transform      : translate(0px, 0px);
-    transform         : translate(0px, 0px);
 }

@@ -3,25 +3,22 @@ var $controlsHeader;
 var $mapCover;
 var $controlsResults;
 var $mapHeader;
+var $detailsContent;
+var $detailsTitle;
+var $detailsImage;
+var $detailsTime;
+var $detailsLocation;
+var $detailsAbout;
 
 /**
  * @global
- * @type {{activeInfoWindows: Array, directionsService: google.maps.DirectionsService, currentLatLong: null}}
+ * @type {{directionsService: google.maps.DirectionsService, currentLatLong: null}}
  */
 var dsmap = {
     eventData: JSON.parse(localStorage.getItem('eventData')),
-
-    activeInfoWindows: [],
-
     directionsService: new google.maps.DirectionsService(),
     currentLatLong   : null
 };
-
-function onEventMarkerClick(marker, infoWindow) {
-    closeAllInfoWindows();
-    infoWindow.open(dsmap.map, marker);
-    dsmap.activeInfoWindows.push(infoWindow);
-}
 
 function eventToResultHTML(event, i) {
     return [
@@ -32,20 +29,8 @@ function eventToResultHTML(event, i) {
     ].join('');
 }
 
-function eventToHTML(event) {
-    return ('<div style="text-align:center"><img src="' + event.HOST + '"></div>' +
-    '<div><h2>' + event.EVENT + '</h2></div>' +
-    '<div>' + event.ABOUT + '</div>' +
-    '<div><h3>Time</h3>' + event.TIME + '</div>' +
-    '<div><h3>Location</h3>' + event.LOCATION + '</div>');
-}
-
 function onData() {
-    dsmap.eventData.forEach(function (event) {
-        var infoWindow = new google.maps.InfoWindow({
-            content: eventToHTML(event)
-        });
-
+    dsmap.eventData.forEach(function (event, index) {
         var latLong = new google.maps.LatLng(event.LAT, event.LONG);
 
         var icon = event.THISPLACE ? 'assets/marker-thisplace.png' : 'assets/marker.png';
@@ -56,13 +41,13 @@ function onData() {
             icon    : icon
         });
 
-        google.maps.event.addListener(marker, 'click', onEventMarkerClick.bind(null, marker, infoWindow));
+        google.maps.event.addListener(marker, 'click', showDetails.bind(null, index));
     });
 
     var filteredEventsHTML = '';
 
-    dsmap.eventData.forEach(function showResult(result) {
-        filteredEventsHTML += eventToResultHTML(result);
+    dsmap.eventData.forEach(function showResult(result, i) {
+        filteredEventsHTML += eventToResultHTML(result, i);
     });
 
     $controlsResults.html(filteredEventsHTML);
@@ -76,15 +61,6 @@ function onCSV(res) {
     onData();
 }
 
-function closeAllInfoWindows() {
-    dsmap.activeInfoWindows.forEach(function (iw) {
-        iw.close();
-    });
-
-    dsmap.activeInfoWindows = [];
-
-    dsmap.directions.setMap(null);
-}
 
 function addCurrentLocationMarker() {
     if ("geolocation" in navigator) {
@@ -101,8 +77,17 @@ function addCurrentLocationMarker() {
     }
 }
 
-function showDetails() {
+function showDetails(index) {
+    $body.addClass('show-details');
 
+    var e = dsmap.eventData[index];
+    $detailsImage.attr('src', e.HOST);
+    $detailsTitle.text(e.EVENT);
+    $detailsTime.text(e.TIME);
+    $detailsLocation.text(e.LOCATION);
+    $detailsAbout.text(e.ABOUT);
+
+    $detailsContent[0].scrollTop = 0;
 }
 
 google.maps.event.addDomListener(window, 'load', function () {
@@ -111,6 +96,13 @@ google.maps.event.addDomListener(window, 'load', function () {
     $controlsResults = $('#controls #results');
     $controlsHeader = $('#controls .header');
     $mapCover = $('#map-cover');
+
+    $detailsContent = $('#details .content');
+    $detailsTitle = $('#details .title');
+    $detailsImage = $('#details img');
+    $detailsTime = $('#details .time');
+    $detailsLocation = $('#details .location');
+    $detailsAbout = $('#details .about');
 
     var mapOptions = {
         zoom  : 14,
@@ -125,7 +117,6 @@ google.maps.event.addDomListener(window, 'load', function () {
     };
 
     var map = new google.maps.Map(document.getElementById("map"), mapOptions);
-    google.maps.event.addListener(map, 'click', closeAllInfoWindows);
 
     var directions = new google.maps.DirectionsRenderer();
     directions.setMap(map);
@@ -144,10 +135,14 @@ google.maps.event.addDomListener(window, 'load', function () {
         });
     }
 
+    $mapCover.on('click', $body.removeClass.bind($body, 'show-controls show-details'));
     $mapHeader.on('click', $body.addClass.bind($body, 'show-controls'));
     $controlsHeader.on('click', $body.removeClass.bind($body, 'show-controls'));
 
     $controlsResults.on('click', '.result', function () {
+        $body
+            .removeClass('show-controls')
+            .addClass('show-details');
         showDetails(this.getAttribute('data-id'));
     });
 });
