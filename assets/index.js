@@ -12,7 +12,9 @@ function onCSV(res) {
             content: (
                 '<div style="text-align:center"><img src="'+event.HOST+'"></div>' +
                 '<div><h2>'+event.EVENT+'</h2></div>'+
-                '<div>'+event.ABOUT+'</div>'
+                '<div>'+event.ABOUT+'</div>' +
+                '<div><h3>Time</h3>'+event.TIME+'</div>'+
+                '<div><h3>Location</h3>'+event.LOCATION+'</div>'
             )
         });
 
@@ -63,7 +65,7 @@ function closeAllInfoWindows() {
     });
 
     dsmap.activeInfoWindows = [];
-    
+
     dsmap.directions.setMap(null);
 }
 
