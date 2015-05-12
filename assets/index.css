@@ -102,54 +102,54 @@ body.show-controls #map-cover {
     text-align  : center;
 }
 
-#controls .when,
-#controls .by {
-    position    : relative;
-    height      : 48px;
-    line-height : 48px;
-    padding     : 0 0 0 12px;
+#controls .when {
+    position : relative;
+    height   : 48px;
+    width    : 100%;
+    overflow : hidden;
 }
 
-#controls .when .label,
-#controls .by .label {
-    display     : inline-block;
-    width       : 50px;
-    font-weight : bold;
+#controls .when .days {
+    position      : absolute;
+    top           : 0;
+    left          : 0;
+    right         : -15px;
+    bottom        : -15px;
+    overflow      : auto;
+    white-space   : nowrap;
+    padding-right : 15px;
 }
 
 #controls a {
+    box-sizing   : border-box;
     display  : inline-block;
-    height   : 100%;
+    width        : 48px;
+    height       : 48px;
     position : relative;
     cursor   : pointer;
+    font-size    : 20px;
+    font-weight  : bold;
+    text-align   : center;
+    padding      : 4px 0 0 0;
+    margin       : 0 0 0 -4px;
+    border-right : 1px solid #282828;
 }
 
-#controls .by[data-by="time"] a.time:after,
-#controls .by[data-by="name"] a.name:after,
-#controls .by[data-by="distance"] a.distance:after,
-#controls .when[data-when="all"] a.all:after,
-#controls .when[data-when="tomorrow"] a.tomorrow:after,
-#controls .when[data-when="today"] a.today:after {
-    display          : block;
-    content          : '';
-    background-color : #282828;
-    position         : absolute;
-    width            : 100%;
-    bottom           : 8px;
-    left             : 0;
-    height           : 4px;
+#controls a:before {
+    display   : block;
+    content   : 'May';
+    font-size : 12px;
 }
 
-#controls .when a:not(:first-child),
-#controls .by a:not(:first-child) {
-    margin-left : 10px;
+#controls a:first-child {
+    border-left : 1px solid #282828;
 }
 
 #controls #results {
     border-top : 1px solid #282828;
     box-sizing : border-box;
     position   : absolute;
-    top        : 180px;
+    top : 112px;
     bottom     : 0;
     left       : 0;
     right      : 0;
