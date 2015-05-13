@@ -20,13 +20,29 @@ var dsmap = {
     currentLatLong   : null
 };
 
-function eventToResultHTML(event, i) {
+function eventToResultHTML(event) {
     return [
-        '<div class="result" data-id="' + i + '">',
+        '<div class="result" data-index="' + event.index + '">',
         '<div class="title">' + event.EVENT + '</div>',
         '<div class="time">' + event.TIME + '</div>',
         '</div>'
     ].join('');
+}
+
+function getEventsByDay(day){
+    return dsmap.eventData
+        .filter(function(e){
+            return e.DAYS.toString() === day.toString();
+        })
+        .sort(function(a,b){
+            return new Date(a.START_UTIME) - new Date(b.START_UTIME);
+        });
+}
+
+function hideAllEventMarkers(){
+    dsmap.eventData.forEach(function(e){
+        e.marker.setMap(null);
+    });
 }
 
 function onData() {
@@ -37,30 +53,82 @@ function onData() {
 
         var marker = new google.maps.Marker({
             position: latLong,
-            map     : dsmap.map,
+            //map     : dsmap.map,
             icon    : icon
         });
 
         google.maps.event.addListener(marker, 'click', showDetails.bind(null, index));
+
+        event.marker = marker;
+        event.index = index;
     });
 
-    var filteredEventsHTML = '';
-
-    dsmap.eventData.forEach(function showResult(result, i) {
-        filteredEventsHTML += eventToResultHTML(result, i);
-    });
-
-    $controlsResults.html(filteredEventsHTML);
 
     addCurrentLocationMarker();
+    showDayEvents(15);
 }
 
 function onCSV(res) {
-    dsmap.eventData = res.data;
-    localStorage.setItem('eventData', JSON.stringify(res.data));
+    var normalized = res.data.slice();
+
+    res.data.forEach(function(e, i){
+        var days = e.DAYS.toString().split(',');
+        var starttimes = e.STARTTIMES.split(',');
+        var endtimes = e.ENDTIMES.split(',');
+
+        if(days.length > 1) {
+            days.forEach(function(day){
+                var clonedEvent = $.extend({}, e, {
+                    DAYS: day,
+                    STARTTIMES: starttimes[0],
+                    ENDTIMES: endtimes[0]
+                });
+                normalized.push(clonedEvent);
+            });
+
+            normalized[i] = null;
+
+        } else if(starttimes.length > 1) {
+            starttimes.forEach(function(_, j){
+                var dayValue = j > 0? parseInt(days[0])+1 : days[0];
+
+                var clonedEvent = $.extend({}, e, {
+                    DAYS: dayValue,
+                    STARTTIMES: starttimes[j],
+                    ENDTIMES: endtimes[j]
+                });
+                normalized.push(clonedEvent);
+            });
+
+            normalized[i] = null;
+        }
+    });
+
+    normalized = normalized.filter(Boolean);
+
+    normalized.forEach(function(e){
+        e.START_UTIME = new Date([
+            e.STARTTIMES,
+            'May',
+            e.DAYS,
+            '2015'
+        ].join(' '));
+
+        e.END_UTIME = new Date([
+            e.ENDTIMES,
+            'May',
+            e.DAYS,
+            '2015'
+        ].join(' '));
+
+        e.START_UTIME = e.START_UTIME.toString();
+        e.END_UTIME = e.END_UTIME.toString();
+    });
+
+    localStorage.setItem('eventData', JSON.stringify(normalized));
+    dsmap.eventData = normalized;
     onData();
 }
-
 
 function addCurrentLocationMarker() {
     if ("geolocation" in navigator) {
@@ -90,11 +158,31 @@ function showDetails(index) {
     $detailsContent[0].scrollTop = 0;
 }
 
+function showDayEvents(day) {
+    hideAllEventMarkers();
+
+    var events = getEventsByDay(day);
+    events.forEach(function(e){ e.marker.setMap(dsmap.map); });
+    var filteredEventsHTML = '';
+
+    events.forEach(function showResult(result, i) {
+        filteredEventsHTML += eventToResultHTML(result, i);
+    });
+
+    $controlsResults.html(filteredEventsHTML);
+}
+
 google.maps.event.addDomListener(window, 'load', function () {
+    var querystring = location.search.replace('?','');
+    if(querystring === 'clearlocalstorage') {
+        localStorage.clear();
+    }
+
     $body = $('body');
     $mapHeader = $('#main .header');
     $controlsResults = $('#controls #results');
     $controlsHeader = $('#controls .header');
+    $controlsDate = $('#controls .when .date');
     $mapCover = $('#map-cover');
 
     $detailsContent = $('#details .content');
@@ -139,10 +227,17 @@ google.maps.event.addDomListener(window, 'load', function () {
     $mapHeader.on('click', $body.addClass.bind($body, 'show-controls'));
     $controlsHeader.on('click', $body.removeClass.bind($body, 'show-controls'));
 
+    $controlsDate.on('click', function(){
+        $controlsDate.removeClass('selected');
+        this.classList.add('selected');
+        var day = this.getAttribute('data-date');
+        showDayEvents(day);
+    });
+
     $controlsResults.on('click', '.result', function () {
         $body
             .removeClass('show-controls')
             .addClass('show-details');
-        showDetails(this.getAttribute('data-id'));
+        showDetails(this.getAttribute('data-index'));
     });
 });

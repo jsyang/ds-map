@@ -71,6 +71,7 @@ body.show-details #map-cover {
 
 #controls {
     background-color : #ffffff;
+    max-width: 480px;
 
     -webkit-transform : translate(calc(-100%), 0px);
     -moz-transform    : translate(calc(-100%), 0px);
@@ -120,11 +121,11 @@ body.show-controls #controls {
     position      : absolute;
     top           : 0;
     left          : 0;
-    right         : -15px;
-    bottom        : -15px;
+    right         : -16px;
+    bottom        : -16px;
     overflow      : auto;
     white-space   : nowrap;
-    padding-right : 15px;
+    padding-right : 16px;
 }
 
 #controls a {
@@ -146,6 +147,7 @@ body.show-controls #controls {
     display   : block;
     content   : 'May';
     font-size : 12px;
+    font-weight: 100;
 }
 
 #controls a.selected {
