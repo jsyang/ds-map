@@ -1,14 +1,19 @@
 var $body;
-var $controlsHeader;
 var $mapCover;
-var $controlsResults;
-var $mapHeader;
+
+var $date;
+var $listingCloseButton;
+var $listingResults;
+
+var $showListingButton;
 var $detailsContent;
 var $detailsTitle;
 var $detailsImage;
 var $detailsTime;
 var $detailsLocation;
 var $detailsAbout;
+var $detailsShareLink;
+var $detailsMapsLink;
 
 /**
  * @global
@@ -29,18 +34,25 @@ function eventToResultHTML(event) {
     ].join('');
 }
 
-function getEventsByDay(day){
-    return dsmap.eventData
-        .filter(function(e){
+function getEventsByDay(day) {
+
+    var dayData = dsmap.eventData;
+
+    if (day !== 'all') {
+        dayData = dayData.filter(function (e) {
             return e.DAYS.toString() === day.toString();
-        })
-        .sort(function(a,b){
-            return new Date(a.START_UTIME) - new Date(b.START_UTIME);
         });
+    }
+
+    dayData = dayData.sort(function (a, b) {
+        return new Date(a.START_UTIME) - new Date(b.START_UTIME);
+    });
+
+    return dayData;
 }
 
-function hideAllEventMarkers(){
-    dsmap.eventData.forEach(function(e){
+function hideAllEventMarkers() {
+    dsmap.eventData.forEach(function (e) {
         e.marker.setMap(null);
     });
 }
@@ -53,7 +65,6 @@ function onData() {
 
         var marker = new google.maps.Marker({
             position: latLong,
-            //map     : dsmap.map,
             icon    : icon
         });
 
@@ -63,21 +74,19 @@ function onData() {
         event.index = index;
     });
 
-
-    addCurrentLocationMarker();
     showDayEvents(15);
 }
 
 function onCSV(res) {
     var normalized = res.data.slice();
 
-    res.data.forEach(function(e, i){
+    res.data.forEach(function (e, i) {
         var days = e.DAYS.toString().split(',');
         var starttimes = e.STARTTIMES.split(',');
         var endtimes = e.ENDTIMES.split(',');
 
-        if(days.length > 1) {
-            days.forEach(function(day){
+        if (days.length > 1) {
+            days.forEach(function (day) {
                 var clonedEvent = $.extend({}, e, {
                     DAYS: day,
                     STARTTIMES: starttimes[0],
@@ -88,9 +97,9 @@ function onCSV(res) {
 
             normalized[i] = null;
 
-        } else if(starttimes.length > 1) {
-            starttimes.forEach(function(_, j){
-                var dayValue = j > 0? parseInt(days[0])+1 : days[0];
+        } else if (starttimes.length > 1) {
+            starttimes.forEach(function (_, j) {
+                var dayValue = j > 0 ? parseInt(days[0]) + 1 : days[0];
 
                 var clonedEvent = $.extend({}, e, {
                     DAYS: dayValue,
@@ -106,7 +115,7 @@ function onCSV(res) {
 
     normalized = normalized.filter(Boolean);
 
-    normalized.forEach(function(e){
+    normalized.forEach(function (e) {
         e.START_UTIME = new Date([
             e.STARTTIMES,
             'May',
@@ -130,67 +139,95 @@ function onCSV(res) {
     onData();
 }
 
-function addCurrentLocationMarker() {
-    if ("geolocation" in navigator) {
-        navigator.geolocation.getCurrentPosition(function (position) {
-            var latLong = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-
-            var marker = new google.maps.Marker({
-                position: latLong,
-                map: dsmap.map
-            });
-
-            dsmap.currentLatLong = latLong;
-        });
-    }
-}
+var LINK = {
+    TWITTER               : 'https://twitter.com/home?status=Going%20to%20!!!%20%23ds15%20%23digitalshoreditch',
+    FACEBOOK              : 'https://www.facebook.com/sharer/sharer.php?u=Going%20to%20!!!%20%23ds15%20%23digitalshoreditch',
+    GOOGLE_MAPS           : 'https://maps.google.com/?q=@__END__',
+    GOOGLE_MAPS_DIRECTIONS: 'http://maps.google.com/maps?daddr=__END__'
+};
 
 function showDetails(index) {
     $body.addClass('show-details');
 
     var e = dsmap.eventData[index];
-    $detailsImage.attr('src', e.HOST);
+    $detailsImage.attr('src', 'assets/logos/' + e.HOST);
     $detailsTitle.text(e.EVENT);
     $detailsTime.text(e.TIME);
     $detailsLocation.text(e.LOCATION);
     $detailsAbout.text(e.ABOUT);
 
+    $detailsShareLink.attr('href', LINK.TWITTER.replace('!!!', e.EVENT));
+
+    var eventLatLong = e.LAT + ',' + e.LONG;
+    var userLatLong = dsmap.userMarker.getPosition().toUrlValue();
+    var mapsLink;
+
+    if (userLatLong) {
+        mapsLink = LINK.GOOGLE_MAPS_DIRECTIONS
+            .replace('__START__', userLatLong)
+            .replace('__END__', eventLatLong);
+    } else {
+        mapsLink = LINK.GOOGLE_MAPS
+            .replace('__END__', eventLatLong);
+    }
+
+    $detailsMapsLink.attr('href', mapsLink);
+
     $detailsContent[0].scrollTop = 0;
 }
 
 function showDayEvents(day) {
-    hideAllEventMarkers();
+    if (day !== 'all') {
+        hideAllEventMarkers();
+    }
 
     var events = getEventsByDay(day);
-    events.forEach(function(e){ e.marker.setMap(dsmap.map); });
+    events.forEach(function (e) {
+        e.marker.setMap(dsmap.map);
+    });
     var filteredEventsHTML = '';
 
     events.forEach(function showResult(result, i) {
         filteredEventsHTML += eventToResultHTML(result, i);
     });
 
-    $controlsResults.html(filteredEventsHTML);
+    $listingResults.html(filteredEventsHTML);
 }
 
 google.maps.event.addDomListener(window, 'load', function () {
-    var querystring = location.search.replace('?','');
-    if(querystring === 'clearlocalstorage') {
-        localStorage.clear();
+    var querystring = location.search.replace('?', '');
+
+    switch (querystring) {
+        case 'clearlocalstorage':
+            localStorage.clear();
+            break;
+        case '':
+
     }
 
     $body = $('body');
-    $mapHeader = $('#main .header');
-    $controlsResults = $('#controls #results');
-    $controlsHeader = $('#controls .header');
-    $controlsDate = $('#controls .when .date');
     $mapCover = $('#map-cover');
 
-    $detailsContent = $('#details .content');
-    $detailsTitle = $('#details .title');
-    $detailsImage = $('#details img');
-    $detailsTime = $('#details .time');
-    $detailsLocation = $('#details .location');
-    $detailsAbout = $('#details .about');
+    var $main = $('#main');
+    var $listing = $('#listing');
+    var $details = $('#details');
+
+    $showListingButton = $main.find('.show-listing-button');
+    $date = $main.find('.when .date');
+
+
+    $listingResults = $listing.find('#results');
+    $listingCloseButton = $listing.find('.close-button');
+
+
+    $detailsContent = $details.find('.content');
+    $detailsTitle = $details.find('.title');
+    $detailsImage = $details.find('img');
+    $detailsTime = $details.find('.time');
+    $detailsLocation = $details.find('.location');
+    $detailsAbout = $details.find('.about');
+    $detailsShareLink = $details.find('.share-link');
+    $detailsMapsLink = $details.find('.maps-link');
 
     var mapOptions = {
         zoom  : 14,
@@ -223,21 +260,21 @@ google.maps.event.addDomListener(window, 'load', function () {
         });
     }
 
-    $mapCover.on('click', $body.removeClass.bind($body, 'show-controls show-details'));
-    $mapHeader.on('click', $body.addClass.bind($body, 'show-controls'));
-    $controlsHeader.on('click', $body.removeClass.bind($body, 'show-controls'));
+    dsmap.userMarker = new GeolocationMarker(map);
 
-    $controlsDate.on('click', function(){
-        $controlsDate.removeClass('selected');
+    $mapCover.on('click', $body.removeClass.bind($body, 'show-details'));
+    $showListingButton.on('click', $body.addClass.bind($body, 'show-listing'));
+    $listingCloseButton.on('click', $body.removeClass.bind($body, 'show-listing'));
+
+    $date.on('click', function () {
+        $date.removeClass('selected');
         this.classList.add('selected');
         var day = this.getAttribute('data-date');
         showDayEvents(day);
     });
 
-    $controlsResults.on('click', '.result', function () {
-        $body
-            .removeClass('show-controls')
-            .addClass('show-details');
+    $listingResults.on('click', '.result', function () {
+        $body.addClass('show-details');
         showDetails(this.getAttribute('data-index'));
     });
 });

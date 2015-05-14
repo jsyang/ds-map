@@ -5,40 +5,82 @@
     <script src="assets/jquery.min.js"></script>
     <script src="assets/papaparse.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
+    <script src="assets/geolocationmarker.min.js"></script>
     <title>Digital Shoreditch Open Houses</title>
 </head>
 <body>
 
 <div id="main">
-    <div class="header">Digital Shoreditch <span class="time">today</span></div>
     <div id="map"></div>
-</div>
-
-<div id="map-cover"></div>
-<div id="controls">
-    <div class="header">I want to see events for</div>
+    <div class="header">digitalshoreditch.thisplace.com</div>
     <div class="when">
         <div class="days">
-            <a class="date selected" data-date="15">15</a>
-            <a class="date" data-date="16">16</a>
-            <a class="date" data-date="17">17</a>
-            <a class="date" data-date="18">18</a>
-            <a class="date" data-date="19">19</a>
-            <a class="date" data-date="20">20</a>
-            <a class="date" data-date="21">21</a>
-            <a class="date" data-date="22">22</a>
-            <a class="date" data-date="23">23</a>
-            <a class="date" data-date="24">24</a>
-            <a class="date" data-date="25">25</a>
+            <div class="exact-days">
+                <div class="date" data-date="all">
+                    <div class="day">All</div>
+                    <div></div>
+                </div>
+                <div class="date selected" data-date="15">
+                    <div class="day">Fri</div>
+                    <div>15</div>
+                </div>
+                <div class="date" data-date="16">
+                    <div class="day">Sat</div>
+                    <div>16</div>
+                </div>
+                <div class="date" data-date="17">
+                    <div class="day">Sun</div>
+                    <div>17</div>
+                </div>
+                <div class="date" data-date="18">
+                    <div class="day">Mon</div>
+                    <div>18</div>
+                </div>
+                <div class="date" data-date="19">
+                    <div class="day">Tue</div>
+                    <div>19</div>
+                </div>
+                <div class="date" data-date="20">
+                    <div class="day">Wed</div>
+                    <div>20</div>
+                </div>
+                <div class="date" data-date="21">
+                    <div class="day">Thu</div>
+                    <div>21</div>
+                </div>
+                <div class="date" data-date="22">
+                    <div class="day">Fri</div>
+                    <div>22</div>
+                </div>
+                <div class="date" data-date="23">
+                    <div class="day">Sat</div>
+                    <div>23</div>
+                </div>
+                <div class="date" data-date="24">
+                    <div class="day">Sun</div>
+                    <div>24</div>
+                </div>
+                <div class="date" data-date="25">
+                    <div class="day">Mon</div>
+                    <div>25</div>
+                </div>
+            </div>
         </div>
     </div>
 
+    <div class="show-listing-button">Explore event list</div>
+</div>
+
+<div id="map-cover"></div>
+
+<div id="listing">
+    <div class="close-button">Go back to the map</div>
     <div id="results"></div>
 </div>
 
 <div id="details">
     <div class="content">
-        <img>
+        <img src="">
 
         <div class="title"></div>
         <div class="time"></div>
@@ -46,8 +88,12 @@
         <div class="about"></div>
     </div>
     <div class="actions">
-        <div class="tweet">Share on Twitter</div>
-        <div class="gmaps">Open in Google Maps</div>
+        <a class="share-link" target="_blank">
+            <div class="share">Share on Twitter</div>
+        </a>
+        <a class="maps-link" target="_blank">
+            <div class="gmaps">Open in Google Maps</div>
+        </a>
     </div>
 </div>
 

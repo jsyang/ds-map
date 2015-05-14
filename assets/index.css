@@ -12,6 +12,8 @@
 body {
     overflow : hidden;
     position : relative;
+    width  : 100%;
+    height : 100%;
     padding  : 0;
     margin   : 0;
 }
@@ -20,7 +22,7 @@ body {
     font-family : "Montserrat";
 }
 
-#controls,
+#listing,
 #details,
 #main,
 #map-cover {
@@ -31,8 +33,10 @@ body {
     bottom   : 0;
 }
 
-#controls,
-#details {
+#listing,
+#details,
+#main .header,
+#main .when {
     -webkit-transition : transform 0.4s;
     -moz-transition    : transform 0.4s;
     -ms-transition     : transform 0.4s;
@@ -57,8 +61,8 @@ body {
     transform          : translate(0px, -9999px);
 }
 
-body.show-controls #map-cover,
 body.show-details #map-cover {
+    z-index : 2;
     opacity           : 1;
     -webkit-transform : translate(0px, 0px);
     -moz-transform    : translate(0px, 0px);
@@ -67,20 +71,18 @@ body.show-details #map-cover {
     transform         : translate(0px, 0px);
 }
 
-/** Event Controls **/
+/** Event listing **/
 
-#controls {
-    background-color : #ffffff;
-    max-width: 480px;
-
-    -webkit-transform : translate(calc(-100%), 0px);
-    -moz-transform    : translate(calc(-100%), 0px);
-    -ms-transform     : translate(calc(-100%), 0px);
-    -o-transform      : translate(calc(-100%), 0px);
-    transform         : translate(calc(-100%), 0px);
+#listing {
+    -webkit-transform : translate(0px, calc(100%));
+    -moz-transform    : translate(0px, calc(100%));
+    -ms-transform     : translate(0px, calc(100%));
+    -o-transform      : translate(0px, calc(100%));
+    transform         : translate(0px, calc(100%));
 }
 
-body.show-controls #controls {
+body.show-listing #listing {
+    top : 48px;
     -webkit-transform : translate(0px, 0px);
     -moz-transform    : translate(0px, 0px);
     -ms-transform     : translate(0px, 0px);
@@ -88,117 +90,82 @@ body.show-controls #controls {
     transform         : translate(0px, 0px);
 }
 
-#controls .header {
+body.show-listing #main .header {
+    height            : 48px;
+    -webkit-transform : translate(0px, -36px);
+    -moz-transform    : translate(0px, -36px);
+    -ms-transform     : translate(0px, -36px);
+    -o-transform      : translate(0px, -36px);
+    transform         : translate(0px, -36px);
+}
+
+body.show-listing #main .when {
+    -webkit-transform : translate(0px, -36px);
+    -moz-transform    : translate(0px, -36px);
+    -ms-transform     : translate(0px, -36px);
+    -o-transform      : translate(0px, -36px);
+    transform         : translate(0px, -36px);
+}
+
+#listing .close-button {
     background-color : #282828;
     color            : white;
-    height           : 64px;
-    line-height      : 64px;
+    height      : 48px;
+    line-height : 48px;
+    width       : 100%;
+    left        : 0;
     text-align       : center;
     cursor           : pointer;
-}
-
-#controls .header::after {
-    display     : block;
-    content     : '×';
-    font-size   : 24px;
     position    : absolute;
     top         : 0;
-    right       : 0;
-    width       : 64px;
-    height      : 64px;
-    line-height : 64px;
-    text-align  : center;
 }
 
-#controls .when {
-    position : relative;
-    height   : 48px;
-    width    : 100%;
-    overflow : hidden;
+#listing #results {
+    box-sizing       : border-box;
+    position         : absolute;
+    top              : 48px;
+    bottom           : 0;
+    left             : 0;
+    right            : 0;
+    overflow         : auto;
+    background-color : #ffffff;
 }
 
-#controls .when .days {
-    position      : absolute;
-    top           : 0;
-    left          : 0;
-    right         : -16px;
-    bottom        : -16px;
-    overflow      : auto;
-    white-space   : nowrap;
-    padding-right : 16px;
-}
-
-#controls a {
-    box-sizing   : border-box;
-    display  : inline-block;
-    width        : 48px;
-    height       : 48px;
-    position : relative;
-    cursor   : pointer;
-    font-size    : 20px;
-    font-weight  : bold;
-    text-align   : center;
-    padding      : 4px 0 0 0;
-    margin       : 0 0 0 -4px;
-    border-right : 1px solid #282828;
-}
-
-#controls a:before {
-    display   : block;
-    content   : 'May';
-    font-size : 12px;
-    font-weight: 100;
-}
-
-#controls a.selected {
-    color            : #dfdfdf;
-    background-color : #4a4a4a;
-}
-
-#controls a:first-child {
-    border-left : 1px solid #282828;
-}
-
-#controls #results {
-    border-top : 1px solid #282828;
-    box-sizing : border-box;
-    position   : absolute;
-    top : 112px;
-    bottom     : 0;
-    left       : 0;
-    right      : 0;
-    overflow   : auto;
-}
-
-#controls #results .result {
+#listing #results .result {
     min-height    : 64px;
     padding       : 10px;
     border-bottom : 1px solid #e4e4e4;
 }
 
-#controls #results .result:last-child {
+#listing #results .result:last-child {
     border-bottom : 0;
 }
 
-#controls #results .result .title {
+#listing #results .result .title {
     font-weight : bold;
 }
 
-#controls #results .result .time {
+#listing #results .result .time {
     font-size : 14px;
 }
 
 /** Event Details **/
 
 #details {
-    box-sizing       : content-box;
-    left             : 48px;
-    background-color : #ffffff;
-    -webkit-transform : translate(calc(100%), 0px);
-    -moz-transform    : translate(calc(100%), 0px);
-    -ms-transform     : translate(calc(100%), 0px);
-    -o-transform      : translate(calc(100%), 0px);
-    transform         : translate(calc(100%), 0px);
+    z-index            : 3;
+    box-sizing         : content-box;
+    left               : 48px;
+    background-color   : #ffffff;
+    -webkit-transition : all 0.4s;
+    -moz-transition    : all 0.4s;
+    -ms-transition     : all 0.4s;
+    -o-transition      : all 0.4s;
+    transition         : all 0.4s;
+    -webkit-transform  : translate(calc(100%), 0px);
+    -moz-transform     : translate(calc(100%), 0px);
+    -ms-transform      : translate(calc(100%), 0px);
+    -o-transform       : translate(calc(100%), 0px);
+    transform          : translate(calc(100%), 0px);
 }
 
 body.show-details #details {
@@ -248,7 +215,7 @@ body.show-details #details {
     height   : 144px;
 }
 
-#details .actions .tweet,
+#details .actions .share,
 #details .actions .gmaps {
     cursor           : pointer;
     height           : 36px;
@@ -259,29 +226,124 @@ body.show-details #details {
     color            : white;
 }
 
+#details .share-link,
+#details .maps-link {
+    text-decoration : none;
+}
+
 /* Main section */
 
 #main {
-    overflow : hidden;
-}
-
-#main #map {
-    position : absolute;
-    top      : 64px;
-    bottom   : 0;
-    left     : 0;
-    right    : 0;
+    position         : absolute;
+    overflow         : hidden;
+    background-color : #000000;
 }
 
 #main .header {
     position         : absolute;
     top              : 0;
-    bottom           : 64px;
     left             : 0;
     right            : 0;
-    line-height      : 64px;
     text-align       : center;
     background-color : #282828;
+    height      : 36px;
+    line-height : 36px;
     color            : white;
     font-weight      : bold;
+}
+
+#main .when {
+    position         : absolute;
+    top              : 36px;
+    left             : 0;
+    height           : 48px;
+    width            : 100%;
+    overflow         : hidden;
+    background-color : #dfdfdf;
+    border-bottom    : 1px solid #000000;
+}
+
+#main .when .days {
+    position    : absolute;
+    top         : 0;
+    left        : 0;
+    right       : -16px;
+    bottom      : -16px;
+    overflow    : auto;
+    white-space : nowrap;
+    padding     : 0 16px 0 16px;
+}
+
+#main .when .exact-days {
+    position : absolute;
+    top      : 0;
+    left     : 0;
+    width    : 605px;
+    height   : 48px;
+}
+
+#main .when .date {
+    float        : left;
+    width        : 48px;
+    height       : 48px;
+    position     : relative;
+    cursor       : pointer;
+    font-size    : 20px;
+    font-weight  : bold;
+    text-align   : center;
+    border-right : 1px solid #282828;
+}
+
+#main .when .date .day {
+    height      : 20px;
+    line-height : 24px;
+    font-size   : 12px;
+    font-weight : 100;
+}
+
+#main .when .date[data-date="all"] .day {
+    font-size   : 18px;
+    height      : 48px;
+    line-height : 48px;
+}
+
+#main .when .date[data-date="all"] div:last-child {
+    font-size : 0;
+    height    : 0;
+    width     : 0;
+}
+
+#main .when .date.selected {
+    color            : #dfdfdf;
+    background-color : #4a4a4a;
+}
+
+#main .when .date:first-child {
+    border-left : 1px solid #282828;
+}
+
+#main #map {
+    position : absolute;
+    top      : 84px;
+    bottom   : 48px;
+    left     : 0;
+    right    : 0;
+}
+
+#main #map .gmnoprint,
+#main #map .gm-style-cc,
+#main #map a[target="_blank"] img {
+    display : none;
+}
+
+#main .show-listing-button {
+    position         : absolute;
+    bottom           : 0;
+    left             : 0;
+    height           : 48px;
+    width            : 100%;
+    color            : #dfdfdf;
+    background-color : #4a4a4a;
+    line-height      : 48px;
+    text-align       : center;
 }
