@@ -66,10 +66,10 @@ body > #viewport {
     -ms-transform      : translate(0px, -9999px);
     -o-transform       : translate(0px, -9999px);
     transform          : translate(0px, -9999px);
+    z-index : 3;
 }
 
 body.show-details #map-cover {
-    z-index : 2;
     opacity           : 1;
     -webkit-transform : translate(0px, 0px);
     -moz-transform    : translate(0px, 0px);
@@ -81,13 +81,12 @@ body.show-details #map-cover {
 /** Event listing **/
 
 #listing {
-    margin-top : -48px;
-    z-index    : 2;
-    -webkit-transform : translate(0px, calc(100%));
-    -moz-transform    : translate(0px, calc(100%));
-    -ms-transform     : translate(0px, calc(100%));
-    -o-transform      : translate(0px, calc(100%));
-    transform         : translate(0px, calc(100%));
+    z-index           : 2;
+    -webkit-transform : translate(0px, calc(100% - 48px));
+    -moz-transform    : translate(0px, calc(100% - 48px));
+    -ms-transform     : translate(0px, calc(100% - 48px));
+    -o-transform      : translate(0px, calc(100% - 48px));
+    transform         : translate(0px, calc(100% - 48px));
 }
 
 body.show-listing #listing {
@@ -176,7 +175,7 @@ body.show-listing #main .when {
 /** Event Details **/
 
 #details {
-    z-index            : 3;
+    z-index : 4;
     box-sizing         : content-box;
     left               : 48px;
     background-color   : #ffffff;
@@ -348,10 +347,6 @@ body.show-details #details {
     box-sizing    : border-box;
 }
 
-#main .when .date:first-child {
-    border-left : 1px solid #282828;
-}
-
 #main #map {
     position : absolute;
     top      : 84px;
@@ -366,23 +361,63 @@ body.show-details #details {
     display : none;
 }
 
-#main .show-listing-button {
-    display : none;
-    position         : absolute;
-    bottom           : 0;
-    left             : 0;
-    height           : 48px;
-    width            : 100%;
-    color            : #dfdfdf;
-    background-color : #4a4a4a;
-    line-height      : 48px;
-    text-align       : center;
-}
-
 /** Non-mobile **/
 
 @media only screen and (min-width : 1024px) {
-    #listing {
+    #main #map {
+        top : 36px;
+    }
 
+    #main .when {
+        top    : 68px;
+        left   : 32px;
+        height : 48px;
+        width  : 400px;
+        border : 1px solid black;
+    }
+
+    body.show-listing #main .when,
+    body.show-listing #main .header,
+    #listing,
+    body.show-listing #listing {
+
+        -webkit-transform : translate(0px, 0px);
+        -moz-transform    : translate(0px, 0px);
+        -ms-transform     : translate(0px, 0px);
+        -o-transform      : translate(0px, 0px);
+        transform         : translate(0px, 0px);
+    }
+
+    body.show-listing #main .header {
+        height : 36px;
+    }
+
+    #listing {
+        -webkit-transition : all 0.4s;
+        -moz-transition    : all 0.4s;
+        -ms-transition     : all 0.4s;
+        -o-transition      : all 0.4s;
+        transition         : all 0.4s;
+        left               : 32px;
+        right              : auto;
+        bottom             : calc(100% - 48px);
+        width              : 400px;
+        top                : 115px;
+        box-sizing         : border-box;
+        border             : 1px solid black;
+    }
+
+    body.show-listing #listing {
+        bottom : 32px;
+        top    : 115px;
+    }
+
+    #map-cover {
+        background-color : rgba(215, 215, 215, 0.2);
+    }
+
+    #details {
+        left  : auto;
+        width : 400px;
     }
 }
