@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b9f4a39e-5ba3-4e2f-8b28-a54d9fac410f" name="Default" comment="Add the about link">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/index.css" afterPath="$PROJECT_DIR$/assets/index.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/index.js" afterPath="$PROJECT_DIR$/assets/index.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="jim-thisplace.github.io.iws" />
@@ -106,8 +104,8 @@
         <option value="$PROJECT_DIR$/assets/geolocationmarker.min.js" />
         <option value="$PROJECT_DIR$/assets/querystring.js" />
         <option value="$PROJECT_DIR$/index.html" />
-        <option value="$PROJECT_DIR$/assets/index.css" />
         <option value="$PROJECT_DIR$/assets/index.js" />
+        <option value="$PROJECT_DIR$/assets/index.css" />
       </list>
     </option>
   </component>
@@ -295,7 +293,13 @@
       <option name="project" value="LOCAL" />
       <updated>1431693638609</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Add the about link">
+      <created>1431694079248</created>
+      <option name="number" value="00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1431694079248</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -341,7 +345,8 @@
     <MESSAGE value="Add share out link and google maps link" />
     <MESSAGE value="Add &quot;today&quot; and &quot;tomorrow&quot; on day selectors&#10;fixed a bunch of bugs, add deep linking" />
     <MESSAGE value="Add grayed out expired events" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add grayed out expired events" />
+    <MESSAGE value="Add the about link" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add the about link" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
