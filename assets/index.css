@@ -123,8 +123,9 @@ body.show-listing #main .when {
 }
 
 #listing .logo img {
-    width  : 50%;
-    height : auto;
+    width     : 50%;
+    height    : auto;
+    max-width : 124px;
 }
 
 #listing .close-button {
@@ -199,7 +200,7 @@ body.show-listing #main .when {
     border-bottom : 0;
     border-top    : 1px solid #ccc;
     color         : #ed1a56;
-    font-size     : 20px;
+    font-size    : 16px;
     line-height   : 64px;
     position      : relative;
     left          : -24px;
