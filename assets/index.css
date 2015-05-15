@@ -282,14 +282,16 @@ body.show-details #details {
     position         : absolute;
     top              : 40px;
     left             : 0;
-    height           : 48px;
+    height           : 56px;
     width            : 100%;
     overflow         : hidden;
-    background-color : #dfdfdf;
-    border-bottom    : 1px solid #000000;
+    background-color : #f8f8f8;
+    border-bottom    : 1px solid #ccc;
+    box-sizing       : border-box;
 }
 
 #main .when .days {
+    color : #888;
     position                   : absolute;
     top                        : 0;
     left                       : 0;
@@ -311,27 +313,27 @@ body.show-details #details {
 
 #main .when .date {
     float        : left;
-    width : 96px;
-    height       : 48px;
+    width        : 80px;
+    height       : 56px;
     position     : relative;
     cursor       : pointer;
     font-size    : 20px;
     font-weight  : bold;
     text-align   : center;
-    border-right : 1px solid #282828;
+    border-right : 1px solid #eee;
 }
 
 #main .when .date .day {
     height      : 20px;
-    line-height : 24px;
+    line-height : 30px;
     font-size   : 12px;
-    font-weight : 100;
+    font-weight : normal;
 }
 
 #main .when .date[data-date="all"] .day {
-    font-size   : 18px;
-    height      : 48px;
-    line-height : 48px;
+    font-size   : 16px;
+    height      : 56px;
+    line-height : 56px;
 }
 
 #main .when .date[data-date="all"] div:last-child {
@@ -341,8 +343,9 @@ body.show-details #details {
 }
 
 #main .when .date.selected {
-    color            : #dfdfdf;
-    background-color : #4a4a4a;
+    color         : #222;
+    border-bottom : 4px solid red;
+    box-sizing    : border-box;
 }
 
 #main .when .date:first-child {
