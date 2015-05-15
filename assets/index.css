@@ -172,14 +172,15 @@ body.show-listing #main .when {
 }
 
 #listing #results {
-    box-sizing       : border-box;
-    position         : absolute;
-    top              : 48px;
-    bottom           : 0;
-    left             : 0;
-    right            : 0;
-    overflow         : auto;
-    background-color : #ffffff;
+    box-sizing                 : border-box;
+    position                   : absolute;
+    top                        : 48px;
+    bottom                     : 0;
+    left                       : 0;
+    right                      : 0;
+    overflow                   : auto;
+    background-color           : #ffffff;
+    -webkit-overflow-scrolling : touch;
 }
 
 #listing #results .result {
