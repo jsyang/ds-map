@@ -12,7 +12,7 @@
 body,
 body > #viewport {
     overflow         : hidden;
-    position : fixed;
+    position         : fixed;
     width            : 100%;
     height           : 100%;
     padding          : 0;
@@ -66,7 +66,7 @@ body > #viewport {
     -ms-transform      : translate(0px, -9999px);
     -o-transform       : translate(0px, -9999px);
     transform          : translate(0px, -9999px);
-    z-index : 3;
+    z-index            : 3;
 }
 
 body.show-details #map-cover {
@@ -90,7 +90,7 @@ body.show-details #map-cover {
 }
 
 body.show-listing #listing {
-    top : 56px;
+    top               : 56px;
     -webkit-transform : translate(0px, 0px);
     -moz-transform    : translate(0px, 0px);
     -ms-transform     : translate(0px, 0px);
@@ -123,8 +123,9 @@ body.show-listing #main .when {
 }
 
 #listing .logo img {
-    width  : 50%;
-    height : auto;
+    width     : 50%;
+    height    : auto;
+    max-width : 124px;
 }
 
 #listing .close-button {
@@ -193,22 +194,27 @@ body.show-listing #main .when {
     border-right : 4px solid #ed1a56;
 }
 
-#listing #results .result,
-#listing #results .about-link {
+#listing #results .result {
     min-height    : 64px;
     padding       : 12px 16px 12px 0;
     border-bottom : 1px solid #eee;
     margin-left   : 24px;
 }
 
+/* todo: remove border bottom from last .result */
+
 #listing #results .about-link {
     font-weight   : bold;
     border-bottom : 0;
+    border-top    : 1px solid #ccc;
     color         : #ed1a56;
-    font-size     : 20px;
+    font-size     : 16px;
     line-height   : 64px;
-    left          : 0px;
-    margin-right  : 24px;
+    position      : relative;
+    left          : -24px;
+    width         : 100%;
+    padding-left  : 48px;
+    border-bottom : 0;
 }
 
 #listing #results a {
@@ -217,8 +223,8 @@ body.show-listing #main .when {
 
 #listing #results .result .title {
     font-weight : bold;
-    font-size : 16px;
-    color     : #444;
+    font-size   : 16px;
+    color       : #444;
 }
 
 #listing #results .result.selected .title {
@@ -265,7 +271,7 @@ body.show-about #listing #results .result {
 /** Event Details **/
 
 #details {
-    z-index : 4;
+    z-index            : 4;
     box-sizing         : content-box;
     left               : 48px;
     background-color   : #ffffff;
@@ -340,7 +346,7 @@ body.show-details #details {
     left     : 0;
     right    : 0;
     bottom   : 0;
-    height   : 144px;
+    height   : 116px;
 }
 
 #details .actions .share,
@@ -349,7 +355,7 @@ body.show-details #details {
     border-radius : 4px;
     height        : 36px;
     line-height   : 36px;
-    margin        : 12px 24px;
+    margin        : 0 24px 18px;
     text-align    : center;
     color         : white;
 }
@@ -402,7 +408,7 @@ body.show-details #details {
 }
 
 #main .when .days {
-    color : #888;
+    color                      : #888;
     position                   : absolute;
     top                        : 0;
     left                       : 0;
@@ -418,7 +424,7 @@ body.show-details #details {
     position : absolute;
     top      : 0;
     left     : 0;
-    width : 1300px;
+    width    : 1300px;
     height   : 48px;
 }
 
@@ -461,8 +467,8 @@ body.show-details #details {
 
 #main #map {
     position : absolute;
-    top    : 40px;
-    bottom : 0;
+    top      : 40px;
+    bottom   : 0;
     left     : 0;
     right    : 0;
 }
@@ -482,7 +488,7 @@ body.show-details #details {
     #main .when {
         top     : 68px;
         left    : 32px;
-        height : 56px;
+        height  : 56px;
         width   : 400px;
         z-index : 5;
     }
@@ -529,14 +535,14 @@ body.show-details #details {
         right              : auto;
         bottom             : calc(100% - 48px);
         width              : 400px;
-        top     : 124px;
-        border  : 0;
-        z-index : 5;
+        top                : 124px;
+        border             : 0;
+        z-index            : 5;
     }
 
     body.show-listing #listing {
         bottom : 32px;
-        top : 124px;
+        top    : 124px;
     }
 
     #details {
