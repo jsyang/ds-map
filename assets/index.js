@@ -23,9 +23,9 @@ var $detailsMapsLink;
  * @type {{directionsService: google.maps.DirectionsService, currentLatLong: null}}
  */
 var dsmap = {
-    eventData        : JSON.parse(localStorage.getItem('eventData')),
+    eventData: JSON.parse(localStorage.getItem('eventData')),
     directionsService: new google.maps.DirectionsService(),
-    currentLatLong   : null
+    currentLatLong: null
 };
 
 function eventToResultHTML(event) {
@@ -69,7 +69,7 @@ function onData() {
 
         var marker = new google.maps.Marker({
             position: latLong,
-            icon    : icon
+            icon: icon
         });
 
         google.maps.event.addListener(marker, 'click', showDetails.bind(null, index));
@@ -89,11 +89,13 @@ function showDeepLink() {
         })[0];
 
         if (deepLinkedItem) {
-            ga('send', 'event', 'access-deep-link', deepLinkedItem.EVENTID, e.LAT + ',' + e.LONG);
+            ga('send', 'event', 'access-deep-link', deepLinkedItem.EVENTID, deepLinkedItem.LAT + ',' + deepLinkedItem.LONG);
 
+            showDayEvents(deepLinkedItem.DAYS);
+            $body.addClass('show-listing');
+            updateListingButton();
 
             showDetails(deepLinkedItem.index);
-            showDayEvents(deepLinkedItem.DAYS);
         }
     } else {
         showDayEvents(todayDate.getDate());
@@ -111,9 +113,9 @@ function onCSV(res) {
         if (days.length > 1) {
             days.forEach(function (day) {
                 var clonedEvent = $.extend({}, e, {
-                    DAYS      : day,
+                    DAYS: day,
                     STARTTIMES: starttimes[0],
-                    ENDTIMES  : endtimes[0]
+                    ENDTIMES: endtimes[0]
                 });
                 normalized.push(clonedEvent);
             });
@@ -125,9 +127,9 @@ function onCSV(res) {
                 var dayValue = j > 0 ? parseInt(days[0]) + 1 : days[0];
 
                 var clonedEvent = $.extend({}, e, {
-                    DAYS      : dayValue,
+                    DAYS: dayValue,
                     STARTTIMES: starttimes[j],
-                    ENDTIMES  : endtimes[j]
+                    ENDTIMES: endtimes[j]
                 });
                 normalized.push(clonedEvent);
             });
@@ -166,13 +168,16 @@ function onCSV(res) {
 }
 
 var LINK = {
-    TWITTER               : 'https://twitter.com/home?status=Going%20to%20!!!%20http://' + location.host + '/?id=???%20%23digitalshoreditch',
-    FACEBOOK              : 'https://www.facebook.com/sharer/sharer.php?u=Going%20to%20!!!%20%23ds15%20%23digitalshoreditch',
-    GOOGLE_MAPS           : 'https://maps.google.com/?q=@__END__',
+    TWITTER: 'https://twitter.com/home?status=Going%20to%20!!!%20http://' + location.host + '/?id=???%20%23digitalshoreditch',
+    FACEBOOK: 'https://www.facebook.com/sharer/sharer.php?u=Going%20to%20!!!%20%23ds15%20%23digitalshoreditch',
+    GOOGLE_MAPS: 'https://maps.google.com/?q=@__END__',
     GOOGLE_MAPS_DIRECTIONS: 'http://maps.google.com/maps?daddr=__END__'
 };
 
 function showDetails(index) {
+    $listingResults.children().removeClass('selected');
+    $listingResults.find('[data-index="' + index + '"]').addClass('selected');
+
     index = parseInt(index);
 
     $body.addClass('show-details');
@@ -194,7 +199,7 @@ function showDetails(index) {
     );
 
     var eventLatLong = e.LAT + ',' + e.LONG;
-    var userLatLong = dsmap.userMarker && dsmap.userMarker.getPosition().toUrlValue();
+    var userLatLong = dsmap.userMarker && dsmap.userMarker.getPosition() && dsmap.userMarker.getPosition().toUrlValue();
     var mapsLink;
 
     if (userLatLong) {
@@ -228,7 +233,7 @@ function showDayEvents(day) {
         filteredEventsHTML += eventToResultHTML(result, i);
     });
 
-    filteredEventsHTML += '<a href="about/"><div class="about-link">Read more about this app</div></a>';
+    filteredEventsHTML += '<a href="about/"><div class="about-link">Read more about this app</div><div class="logo"><img src="assets/this-place-logo.png"></div></a>';
 
     $listingResults.html(filteredEventsHTML);
     updateSelectedDay(day);
@@ -238,7 +243,7 @@ function updateSelectedDay(day) {
     $date.removeClass('selected');
     $date.filter('[data-date="' + day + '"]').addClass('selected');
     if (window.innerWidth >= 1024) {
-        $date.parent().parent().scrollTo({ left: 96 * (parseInt(day) - 15), top: 0 }, { duration: 400 });
+        $date.parent().parent().scrollTo({left: 96 * (parseInt(day) - 15), top: 0}, {duration: 400});
     }
 }
 
@@ -246,6 +251,18 @@ function updateDaySelectorToday() {
     var day = todayDate.getDate();
     $date.filter('[data-date="' + day + '"]').find('.day').text('Today');
     $date.filter('[data-date="' + (day + 1) + '"]').find('.day').text('Tomorrow');
+}
+
+function updateListingButton() {
+    var showingListing = $body.hasClass('show-listing');
+    if (showingListing) {
+        $listingCloseButton.text(window.innerWidth < 1024 ? 'Go back to the map' : 'Hide this list');
+        $listingCloseButton.addClass('active');
+    } else {
+        $listingResults.children().removeClass('selected');
+        $listingCloseButton.text('Explore these events');
+        $listingCloseButton.removeClass('active');
+    }
 }
 
 google.maps.event.addDomListener(window, 'load', function () {
@@ -292,15 +309,15 @@ google.maps.event.addDomListener(window, 'load', function () {
     $detailsMapsLink = $details.find('.maps-link');
 
     var mapOptions = {
-        zoom  : 14,
+        zoom: 14,
         center: new google.maps.LatLng(51.5267625, -0.0801057),
 
-        panControl       : false,
+        panControl: false,
         streetViewControl: false,
-        mapTypeControl   : false,
+        mapTypeControl: false,
 
-        zoomControl       : true,
-        zoomControlOptions: { position: google.maps.ControlPosition.TOP_RIGHT }
+        zoomControl: true,
+        zoomControlOptions: {position: google.maps.ControlPosition.TOP_RIGHT}
     };
 
     var map = new google.maps.Map(document.getElementById("map"), mapOptions);
@@ -315,26 +332,23 @@ google.maps.event.addDomListener(window, 'load', function () {
         onData();
     } else {
         Papa.parse('assets/index.csv', {
-            header       : true,
-            download     : true,
+            header: true,
+            download: true,
             dynamicTyping: true,
-            complete     : onCSV
+            complete: onCSV
         });
     }
 
     dsmap.userMarker = new GeolocationMarker(map);
 
-    $mapCover.on('click', $body.removeClass.bind($body, 'show-details'));
+    $mapCover.on('click', function () {
+        $body.removeClass('show-details');
+        $listingResults.children().removeClass('selected');
+    });
+
     $listingCloseButton.on('click', function () {
         $body.toggleClass('show-listing');
-        var showingListing = $body.hasClass('show-listing');
-        if (showingListing) {
-            $listingCloseButton.text(window.innerWidth < 1024 ? 'Go back to the map' : 'Hide this list');
-            $listingCloseButton.addClass('active');
-        } else {
-            $listingCloseButton.text('Explore these events');
-            $listingCloseButton.removeClass('active');
-        }
+        updateListingButton();
     });
 
     $date.on('click', function () {
@@ -343,8 +357,13 @@ google.maps.event.addDomListener(window, 'load', function () {
     });
 
     $listingResults.on('click', '.result', function () {
-        $body.addClass('show-details');
-        showDetails(this.getAttribute('data-index'));
+        $body.toggleClass('show-details');
+        var showingListing = $body.hasClass('show-details');
+        if (showingListing) {
+            showDetails(this.getAttribute('data-index'));
+        } else {
+            $listingResults.children().removeClass('selected');
+        }
     });
 
     updateDaySelectorToday();
