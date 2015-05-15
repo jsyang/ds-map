@@ -22,11 +22,11 @@ body > #viewport {
 
 * {
     font-family         : 'Titillium Web', sans-serif;
-    -webkit-user-select : none;
-    -moz-user-select    : none;
-    -ms-user-select     : none;
-    -o-user-select      : none;
-    user-select         : none;
+    /*-webkit-user-select : none;*/
+    /*-moz-user-select    : none;*/
+    /*-ms-user-select     : none;*/
+    /*-o-user-select      : none;*/
+    /*user-select         : none;*/
 }
 
 #listing,
@@ -266,20 +266,21 @@ body.show-details #details {
 
 #main .header {
     position         : absolute;
+    font-size        : 16px;
     top              : 0;
     left             : 0;
     right            : 0;
     text-align       : center;
-    background-color : #282828;
-    height      : 36px;
-    line-height : 36px;
+    background-color : #ed1a56;
+    height           : 40px;
+    line-height      : 40px;
     color            : white;
-    font-weight      : bold;
+    font-weight      : normal;
 }
 
 #main .when {
     position         : absolute;
-    top              : 36px;
+    top              : 40px;
     left             : 0;
     height           : 48px;
     width            : 100%;
