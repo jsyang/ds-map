@@ -8,6 +8,8 @@ var $date;
 var $listingCloseButton;
 var $listingResults;
 
+var $aboutButton;
+
 var $showListingButton;
 var $detailsContent;
 var $detailsTitle;
@@ -23,7 +25,7 @@ var $detailsMapsLink;
  * @type {{directionsService: google.maps.DirectionsService, currentLatLong: null}}
  */
 var dsmap = {
-    eventData: JSON.parse(localStorage.getItem('eventData')),
+    eventData     : JSON.parse(localStorage.getItem('eventData')),
     directionsService: new google.maps.DirectionsService(),
     currentLatLong: null
 };
@@ -34,7 +36,7 @@ function eventToResultHTML(event) {
     return [
         '<div class="result" data-index="' + event.index + '" data-expired="' + expired + '">',
         '<div class="title">' + event.EVENT + '</div>',
-        '<div class="time">' + event.TIME + '</div>',
+        '<div class="time">' + (expired ? 'Event has ended' : event.TIME) + '</div>',
         '</div>'
     ].join('');
 }
@@ -65,7 +67,7 @@ function onData() {
     dsmap.eventData.forEach(function (event, index) {
         var latLong = new google.maps.LatLng(event.LAT, event.LONG);
 
-        var icon = event.THISPLACE ? 'assets/marker-thisplace.png' : 'assets/marker.png';
+        var icon = event.THISPLACE ? '/assets/marker-thisplace.png' : '/assets/marker.png';
 
         var marker = new google.maps.Marker({
             position: latLong,
@@ -113,7 +115,7 @@ function onCSV(res) {
         if (days.length > 1) {
             days.forEach(function (day) {
                 var clonedEvent = $.extend({}, e, {
-                    DAYS: day,
+                    DAYS    : day,
                     STARTTIMES: starttimes[0],
                     ENDTIMES: endtimes[0]
                 });
@@ -127,7 +129,7 @@ function onCSV(res) {
                 var dayValue = j > 0 ? parseInt(days[0]) + 1 : days[0];
 
                 var clonedEvent = $.extend({}, e, {
-                    DAYS: dayValue,
+                    DAYS    : dayValue,
                     STARTTIMES: starttimes[j],
                     ENDTIMES: endtimes[j]
                 });
@@ -168,8 +170,8 @@ function onCSV(res) {
 }
 
 var LINK = {
-    TWITTER: 'https://twitter.com/home?status=Going%20to%20!!!%20http://' + location.host + '/?id=???%20%23digitalshoreditch',
-    FACEBOOK: 'https://www.facebook.com/sharer/sharer.php?u=Going%20to%20!!!%20%23ds15%20%23digitalshoreditch',
+    TWITTER    : 'https://twitter.com/home?status=Going%20to%20!!!%20http://' + location.host + '/?id=???%20%23digitalshoreditch',
+    FACEBOOK   : 'https://www.facebook.com/sharer/sharer.php?u=Going%20to%20!!!%20%23ds15%20%23digitalshoreditch',
     GOOGLE_MAPS: 'https://maps.google.com/?q=@__END__',
     GOOGLE_MAPS_DIRECTIONS: 'http://maps.google.com/maps?daddr=__END__'
 };
@@ -185,7 +187,7 @@ function showDetails(index) {
     var e = dsmap.eventData[index];
     ga('send', 'event', 'show-details', e.EVENTID, e.LAT + ',' + e.LONG);
 
-    $detailsImage.attr('src', 'assets/logos/' + e.HOST);
+    $detailsImage.attr('src', '/assets/logos/' + e.HOST);
     $detailsTitle.text(e.EVENT);
     $detailsTime.text(e.TIME);
     $detailsLocation.text(e.LOCATION);
@@ -233,9 +235,8 @@ function showDayEvents(day) {
         filteredEventsHTML += eventToResultHTML(result, i);
     });
 
-    filteredEventsHTML += '<a href="about/"><div class="about-link">Read more about this app</div><div class="logo"><img src="assets/this-place-logo.png"></div></a>';
-
-    $listingResults.html(filteredEventsHTML);
+    $listingResults.children('.result').remove();
+    $listingResults.prepend($(filteredEventsHTML));
     updateSelectedDay(day);
 }
 
@@ -263,6 +264,10 @@ function updateListingButton() {
         $listingCloseButton.text('Explore these events');
         $listingCloseButton.removeClass('active');
     }
+}
+
+function showAbout() {
+    $body.toggleClass('show-about');
 }
 
 google.maps.event.addDomListener(window, 'load', function () {
@@ -297,7 +302,7 @@ google.maps.event.addDomListener(window, 'load', function () {
 
     $listingResults = $listing.find('#results');
     $listingCloseButton = $listing.find('.close-button');
-
+    $aboutButton = $listing.find('.about-link');
 
     $detailsContent = $details.find('.content');
     $detailsTitle = $details.find('.title');
@@ -308,16 +313,17 @@ google.maps.event.addDomListener(window, 'load', function () {
     $detailsShareLink = $details.find('.share-link');
     $detailsMapsLink = $details.find('.maps-link');
 
+
     var mapOptions = {
         zoom: 14,
         center: new google.maps.LatLng(51.5267625, -0.0801057),
 
-        panControl: false,
+        panControl    : false,
         streetViewControl: false,
         mapTypeControl: false,
 
-        zoomControl: true,
-        zoomControlOptions: {position: google.maps.ControlPosition.TOP_RIGHT}
+        zoomControl       : true,
+        zoomControlOptions: { position: google.maps.ControlPosition.TOP_RIGHT }
     };
 
     var map = new google.maps.Map(document.getElementById("map"), mapOptions);
@@ -331,8 +337,8 @@ google.maps.event.addDomListener(window, 'load', function () {
     if (dsmap.eventData) {
         onData();
     } else {
-        Papa.parse('assets/index.csv', {
-            header: true,
+        Papa.parse('/assets/index.csv', {
+            header  : true,
             download: true,
             dynamicTyping: true,
             complete: onCSV
@@ -366,6 +372,20 @@ google.maps.event.addDomListener(window, 'load', function () {
         }
     });
 
+    $aboutButton.on('click', function () {
+        $body.toggleClass('show-about');
+        setTimeout(function () {
+            $listingResults.scrollTo({ top: 0, left: 0 }, { duration: 400 });
+        }, 400);
+
+    });
+
     updateDaySelectorToday();
 
+    var path = location.pathname.split('/')[1];
+    if (path === 'about') {
+        $body.addClass('show-listing');
+        updateListingButton();
+        showAbout();
+    }
 });
