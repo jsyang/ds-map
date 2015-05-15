@@ -21,7 +21,7 @@ body > #viewport {
 }
 
 * {
-    font-family         : 'Titillium Web', sans-serif;
+    font-family : 'Titillium Web', sans-serif;
     /*-webkit-user-select : none;*/
     /*-moz-user-select    : none;*/
     /*-ms-user-select     : none;*/
@@ -90,7 +90,7 @@ body.show-details #map-cover {
 }
 
 body.show-listing #listing {
-    top : 48px;
+    top : 56px;
     -webkit-transform : translate(0px, 0px);
     -moz-transform    : translate(0px, 0px);
     -ms-transform     : translate(0px, 0px);
@@ -108,24 +108,54 @@ body.show-listing #main .header {
 }
 
 body.show-listing #main .when {
-    -webkit-transform : translate(0px, -36px);
-    -moz-transform    : translate(0px, -36px);
-    -ms-transform     : translate(0px, -36px);
-    -o-transform      : translate(0px, -36px);
-    transform         : translate(0px, -36px);
+    -webkit-transform : translate(0px, -40px);
+    -moz-transform    : translate(0px, -40px);
+    -ms-transform     : translate(0px, -40px);
+    -o-transform      : translate(0px, -40px);
+    transform         : translate(0px, -40px);
 }
 
 #listing .close-button {
-    background-color : #282828;
-    color            : white;
-    height      : 48px;
-    line-height : 48px;
-    width       : 100%;
-    left        : 0;
-    text-align       : center;
+    background-color : white;
+    color            : #222;
+    font-size        : 14px;
+    font-weight      : bold;
+    height           : 48px;
+    padding-left     : 48px;
+    line-height      : 48px;
+    width            : 100%;
+    left             : 0;
+    text-align       : left;
     cursor           : pointer;
-    position    : absolute;
-    top         : 0;
+    position         : absolute;
+    top              : 0;
+    box-sizing       : border-box;
+}
+
+#listing .close-button.active {
+    background : #eee;
+    border     : 0;
+}
+
+#listing .close-button:before {
+    float             : left;
+    position          : relative;
+    content           : ' ';
+    background-image  : url('./arrow-sm-d.svg');
+    background-size   : 16px 16px;
+    height            : 16px;
+    width             : 16px;
+    top               : 16px;
+    left              : -24px;
+    -ms-transform     : rotate(180deg); /* IE 9 */
+    -webkit-transform : rotate(180deg); /* Chrome, Safari, Opera */
+    transform         : rotate(180deg);
+}
+
+#listing .close-button.active:before {
+    -ms-transform     : rotate(90deg); /* IE 9 */
+    -webkit-transform : rotate(90deg); /* Chrome, Safari, Opera */
+    transform         : rotate(90deg);
 }
 
 #listing #results {

@@ -323,8 +323,10 @@ google.maps.event.addDomListener(window, 'load', function () {
         var showingListing = $body.hasClass('show-listing');
         if (showingListing) {
             $listingCloseButton.text(window.innerWidth < 1024 ? 'Go back to the map' : 'Hide this list');
+            $listingCloseButton.addClass('active');
         } else {
             $listingCloseButton.text('Explore these events');
+            $listingCloseButton.removeClass('active');
         }
     });
 
