@@ -115,6 +115,18 @@ body.show-listing #main .when {
     transform         : translate(0px, -40px);
 }
 
+#listing .logo {
+    text-align  : center;
+    height      : 60px;
+    border-top  : 1px solid #ccc;
+    padding-top : 38px;
+}
+
+#listing .logo img {
+    width  : 50%;
+    height : auto;
+}
+
 #listing .close-button {
     background-color : white;
     color            : #222;
@@ -169,6 +181,10 @@ body.show-listing #main .when {
     background-color : #ffffff;
 }
 
+#listing #results .result.selected {
+    border-right : 4px solid #ed1a56;
+}
+
 #listing #results .result,
 #listing #results .about-link {
     min-height    : 64px;
@@ -199,7 +215,11 @@ body.show-listing #main .when {
 #listing #results .result .title {
     font-weight : bold;
     font-size : 16px;
-    color     : #222;
+    color     : #444;
+}
+
+#listing #results .result.selected .title {
+    color : #000;
 }
 
 #listing #results .result .time {
@@ -252,18 +272,32 @@ body.show-details #details {
 
 #details .title {
     margin-top  : 12px;
-    font-size   : 18px;
+    font-size   : 20px;
     font-weight : bold;
+    line-height : 24px;
 }
 
 #details .time {
-    margin-top : 12px;
-    font-size  : 14px;
+    margin-top    : 18px;
+    font-size     : 12px;
+    color         : #999;
+    border-top    : 1px solid #eee;
+    border-bottom : 1px solid #eee;
+    padding       : 8px 0;
 }
 
-#details .location,
+#details .location {
+    margin-top    : 8px;
+    font-size     : 12px;
+    color         : #999;
+    border-bottom : 1px solid #eee;
+    padding       : 0 0 8px;
+}
+
 #details .about {
-    margin-top : 16px;
+    margin-top  : 12px;
+    font-size   : 14px;
+    line-height : 20px;
 }
 
 #details .actions {
@@ -276,13 +310,21 @@ body.show-details #details {
 
 #details .actions .share,
 #details .actions .gmaps {
-    cursor           : pointer;
-    height           : 36px;
-    line-height      : 36px;
-    margin           : 24px;
-    text-align       : center;
-    background-color : #282828;
-    color            : white;
+    cursor        : pointer;
+    border-radius : 4px;
+    height        : 36px;
+    line-height   : 36px;
+    margin        : 12px 24px;
+    text-align    : center;
+    color         : white;
+}
+
+#details .actions .share {
+    background : #04aceb;
+}
+
+#details .actions .gmaps {
+    background : #5684ff;
 }
 
 #details .share-link,
@@ -398,7 +440,7 @@ body.show-details #details {
 
 /** Non-mobile **/
 
-@media only screen and (min-width : 1024px) {
+@media only screen and (min-width : 768px) {
     #main #map {
         top : 36px;
     }
