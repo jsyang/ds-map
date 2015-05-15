@@ -21,7 +21,7 @@ body > #viewport {
 }
 
 * {
-    font-family         : 'Titillium Web', sans-serif;
+    font-family : 'Titillium Web', sans-serif;
     /*-webkit-user-select : none;*/
     /*-moz-user-select    : none;*/
     /*-ms-user-select     : none;*/
@@ -367,11 +367,12 @@ body.show-details #details {
     }
 
     #main .when {
-        top    : 68px;
-        left   : 32px;
-        height : 48px;
-        width  : 400px;
-        border : 1px solid black;
+        top     : 68px;
+        left    : 32px;
+        height  : 48px;
+        width   : 400px;
+        border  : 1px solid black;
+        z-index : 5;
     }
 
     body.show-listing #main .when,
@@ -403,15 +404,12 @@ body.show-details #details {
         top                : 115px;
         box-sizing         : border-box;
         border             : 1px solid black;
+        z-index : 5;
     }
 
     body.show-listing #listing {
         bottom : 32px;
         top    : 115px;
-    }
-
-    #map-cover {
-        background-color : rgba(215, 215, 215, 0.2);
     }
 
     #details {
