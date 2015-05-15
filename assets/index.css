@@ -486,8 +486,10 @@ body.show-details #details {
         transform         : translate(0px, 0px);
     }
 
-    body.show-listing #main .header {
-        height : 40px;
+    #main .header {
+        font-size   : 20px;
+        height      : 48px;
+        line-height : 48px;
     }
 
     #listing {
