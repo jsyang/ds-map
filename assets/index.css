@@ -1,11 +1,11 @@
 @font-face {
-    font-family : 'Montserrat';
-    src         : url('./Montserrat-Regular.ttf');
+    font-family : 'Titillium Web';
+    src         : url('./TitilliumWeb-Regular.ttf');
 }
 
 @font-face {
-    font-family : "Montserrat";
-    src         : url('./Montserrat-Bold.ttf');
+    font-family : 'Titillium Web';
+    src         : url('./TitilliumWeb-Bold.ttf');
     font-weight : bold;
 }
 
@@ -21,7 +21,12 @@ body > #viewport {
 }
 
 * {
-    font-family : "Montserrat";
+    font-family         : 'Titillium Web', sans-serif;
+    -webkit-user-select : none;
+    -moz-user-select    : none;
+    -ms-user-select     : none;
+    -o-user-select      : none;
+    user-select         : none;
 }
 
 #listing,
