@@ -89,6 +89,9 @@ function showDeepLink() {
         })[0];
 
         if (deepLinkedItem) {
+            ga('send', 'event', 'access-deep-link', deepLinkedItem.EVENTID, e.LAT + ',' + e.LONG);
+
+
             showDetails(deepLinkedItem.index);
             showDayEvents(deepLinkedItem.DAYS);
         }
@@ -170,6 +173,7 @@ var LINK = {
 };
 
 function showDetails(index) {
+    ga('send', 'event', 'show-details', e.EVENTID, e.LAT + ',' + e.LONG);
     index = parseInt(index);
 
     $body.addClass('show-details');
@@ -207,6 +211,8 @@ function showDetails(index) {
 }
 
 function showDayEvents(day) {
+    ga('send', 'event', 'filter', 'by day', day);
+
     if (day !== 'all') {
         hideAllEventMarkers();
     }
