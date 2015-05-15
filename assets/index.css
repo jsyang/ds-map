@@ -211,10 +211,31 @@ body.show-listing #main .when {
     font-size     : 16px;
     line-height   : 64px;
     position      : relative;
-    padding-left : 24px;
+    padding-left : 48px;
     box-sizing   : border-box;
     width         : 100%;
     border-bottom : 0;
+}
+
+body.show-listing #listing #results .about-link:before {
+    float             : left;
+    position          : relative;
+    content           : ' ';
+    background-image  : url('./arrow-sm-d.svg');
+    background-size   : 16px 16px;
+    height            : 16px;
+    width             : 16px;
+    top               : 24px;
+    left              : -24px;
+    -ms-transform     : rotate(0deg); /* IE 9 */
+    -webkit-transform : rotate(0deg); /* Chrome, Safari, Opera */
+    transform         : rotate(0deg);
+}
+
+body.show-about #listing #results .about-link:before {
+    -ms-transform     : rotate(180deg); /* IE 9 */
+    -webkit-transform : rotate(180deg); /* Chrome, Safari, Opera */
+    transform         : rotate(180deg);
 }
 
 #listing #results a {
@@ -257,7 +278,7 @@ body.show-listing #main .when {
 }
 
 body.show-about #listing #results .blurb {
-    padding : 12px 16px 12px 0;
+    padding : 0px 16px 12px 0;
     max-height : 1200px;
 }
 
@@ -522,8 +543,10 @@ body.show-details #details {
         transform         : translate(0px, 0px);
     }
 
-    body.show-listing #main .header {
-        height : 40px;
+    #main .header {
+        font-size   : 20px;
+        height      : 48px;
+        line-height : 48px;
     }
 
     #listing {
