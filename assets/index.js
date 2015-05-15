@@ -98,6 +98,7 @@ function showDeepLink() {
             updateListingButton();
 
             showDetails(deepLinkedItem.index);
+            $listingResults.scrollTo($listingResults.find('.result[data-index="' + deepLinkedItem.index + '"]'));
         }
     } else {
         showDayEvents(todayDate.getDate());
@@ -366,12 +367,16 @@ google.maps.event.addDomListener(window, 'load', function () {
     });
 
     $listingResults.on('click', '.result', function () {
-        $body.toggleClass('show-details');
-        var showingListing = $body.hasClass('show-details');
-        if (showingListing) {
-            showDetails(this.getAttribute('data-index'));
+        var $this = $(this);
+        var isSelected = $this.hasClass('selected');
+        if (isSelected) {
+            $body.removeClass('show-details');
+            $this.removeClass('selected');
+
         } else {
             $listingResults.children().removeClass('selected');
+            $body.addClass('show-details');
+            showDetails(this.getAttribute('data-index'));
         }
     });
 
