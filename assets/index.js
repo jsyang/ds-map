@@ -173,12 +173,13 @@ var LINK = {
 };
 
 function showDetails(index) {
-    ga('send', 'event', 'show-details', e.EVENTID, e.LAT + ',' + e.LONG);
     index = parseInt(index);
 
     $body.addClass('show-details');
 
     var e = dsmap.eventData[index];
+    ga('send', 'event', 'show-details', e.EVENTID, e.LAT + ',' + e.LONG);
+
     $detailsImage.attr('src', 'assets/logos/' + e.HOST);
     $detailsTitle.text(e.EVENT);
     $detailsTime.text(e.TIME);
