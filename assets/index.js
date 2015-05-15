@@ -23,7 +23,7 @@ var $detailsMapsLink;
  * @type {{directionsService: google.maps.DirectionsService, currentLatLong: null}}
  */
 var dsmap = {
-    eventData: JSON.parse(localStorage.getItem('eventData')),
+    eventData        : JSON.parse(localStorage.getItem('eventData')),
     directionsService: new google.maps.DirectionsService(),
     currentLatLong   : null
 };
@@ -108,9 +108,9 @@ function onCSV(res) {
         if (days.length > 1) {
             days.forEach(function (day) {
                 var clonedEvent = $.extend({}, e, {
-                    DAYS    : day,
+                    DAYS      : day,
                     STARTTIMES: starttimes[0],
-                    ENDTIMES: endtimes[0]
+                    ENDTIMES  : endtimes[0]
                 });
                 normalized.push(clonedEvent);
             });
@@ -122,9 +122,9 @@ function onCSV(res) {
                 var dayValue = j > 0 ? parseInt(days[0]) + 1 : days[0];
 
                 var clonedEvent = $.extend({}, e, {
-                    DAYS    : dayValue,
+                    DAYS      : dayValue,
                     STARTTIMES: starttimes[j],
-                    ENDTIMES: endtimes[j]
+                    ENDTIMES  : endtimes[j]
                 });
                 normalized.push(clonedEvent);
             });
@@ -163,7 +163,7 @@ function onCSV(res) {
 }
 
 var LINK = {
-    TWITTER: 'https://twitter.com/home?status=Going%20to%20!!!%20http://' + location.host + '/?id=???%20%23digitalshoreditch',
+    TWITTER               : 'https://twitter.com/home?status=Going%20to%20!!!%20http://' + location.host + '/?id=???%20%23digitalshoreditch',
     FACEBOOK              : 'https://www.facebook.com/sharer/sharer.php?u=Going%20to%20!!!%20%23ds15%20%23digitalshoreditch',
     GOOGLE_MAPS           : 'https://maps.google.com/?q=@__END__',
     GOOGLE_MAPS_DIRECTIONS: 'http://maps.google.com/maps?daddr=__END__'
@@ -231,7 +231,7 @@ function updateSelectedDay(day) {
     $date.removeClass('selected');
     $date.filter('[data-date="' + day + '"]').addClass('selected');
     if (window.innerWidth >= 1024) {
-        $date.parent().parent().scrollLeft(96 * (parseInt(day) - 15));
+        $date.parent().parent().scrollTo({ left: 96 * (parseInt(day) - 15), top: 0 }, { duration: 400 });
     }
 }
 
