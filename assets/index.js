@@ -164,7 +164,7 @@ function onCSV(res) {
 }
 
 var LINK = {
-    TWITTER: 'https://twitter.com/home?status=Going%20to%20!!!%20http://digitalshoreditch.thisplace.com/?id=???%20%23digitalshoreditch',
+    TWITTER: 'https://twitter.com/home?status=Going%20to%20!!!%20http://' + location.host + '/?id=???%20%23digitalshoreditch',
     FACEBOOK              : 'https://www.facebook.com/sharer/sharer.php?u=Going%20to%20!!!%20%23ds15%20%23digitalshoreditch',
     GOOGLE_MAPS           : 'https://maps.google.com/?q=@__END__',
     GOOGLE_MAPS_DIRECTIONS: 'http://maps.google.com/maps?daddr=__END__'
