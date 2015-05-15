@@ -384,7 +384,7 @@ body.show-details #details {
 
 #main #map {
     position : absolute;
-    top      : 84px;
+    top    : 40px;
     bottom : 0;
     left     : 0;
     right    : 0;
@@ -406,10 +406,25 @@ body.show-details #details {
     #main .when {
         top     : 68px;
         left    : 32px;
-        height  : 48px;
+        height : 56px;
         width   : 400px;
-        border  : 1px solid black;
         z-index : 5;
+    }
+
+    #listing .close-button {
+        border : 0;
+    }
+
+    #listing .close-button:before {
+        -ms-transform     : rotate(0deg); /* IE 9 */
+        -webkit-transform : rotate(0deg); /* Chrome, Safari, Opera */
+        transform         : rotate(0deg);
+    }
+
+    #listing .close-button.active:before {
+        -ms-transform     : rotate(180deg); /* IE 9 */
+        -webkit-transform : rotate(180deg); /* Chrome, Safari, Opera */
+        transform         : rotate(180deg);
     }
 
     body.show-listing #main .when,
@@ -425,7 +440,7 @@ body.show-details #details {
     }
 
     body.show-listing #main .header {
-        height : 36px;
+        height : 40px;
     }
 
     #listing {
@@ -438,15 +453,14 @@ body.show-details #details {
         right              : auto;
         bottom             : calc(100% - 48px);
         width              : 400px;
-        top                : 115px;
-        box-sizing         : border-box;
-        border             : 1px solid black;
+        top     : 124px;
+        border  : 0;
         z-index : 5;
     }
 
     body.show-listing #listing {
         bottom : 32px;
-        top    : 115px;
+        top : 124px;
     }
 
     #details {
