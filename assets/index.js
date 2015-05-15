@@ -243,7 +243,7 @@ function updateSelectedDay(day) {
     $date.removeClass('selected');
     $date.filter('[data-date="' + day + '"]').addClass('selected');
     if (window.innerWidth >= 1024) {
-        $date.parent().parent().scrollTo({left: 96 * (parseInt(day) - 15), top: 0}, {duration: 400});
+        $date.parent().parent().scrollTo({ left: 80 * (parseInt(day) - 15), top: 0 }, { duration: 400 });
     }
 }
 
