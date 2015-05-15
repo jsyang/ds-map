@@ -425,7 +425,7 @@ body.show-details #details {
     position : absolute;
     top      : 0;
     left     : 0;
-    width    : 1300px;
+    width : 1000px;
     height   : 48px;
 }
 

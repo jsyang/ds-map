@@ -313,6 +313,9 @@ google.maps.event.addDomListener(window, 'load', function () {
     $detailsShareLink = $details.find('.share-link');
     $detailsMapsLink = $details.find('.maps-link');
 
+    var ua = navigator.userAgent;
+    var isIphoneOrAndroid = (ua.indexOf('iPhone') != -1 || ua.indexOf('Android') != -1 );
+    var showZoom = !isIphoneOrAndroid;
 
     var mapOptions = {
         zoom: 14,
@@ -322,7 +325,7 @@ google.maps.event.addDomListener(window, 'load', function () {
         streetViewControl: false,
         mapTypeControl: false,
 
-        zoomControl       : true,
+        zoomControl: showZoom,
         zoomControlOptions: { position: google.maps.ControlPosition.TOP_RIGHT }
     };
 
