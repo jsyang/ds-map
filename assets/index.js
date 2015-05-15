@@ -29,8 +29,10 @@ var dsmap = {
 };
 
 function eventToResultHTML(event) {
+    var expired = new Date(event.END_UTIME) < new Date(todayDate);
+
     return [
-        '<div class="result" data-index="' + event.index + '">',
+        '<div class="result" data-index="' + event.index + '" data-expired="' + expired + '">',
         '<div class="title">' + event.EVENT + '</div>',
         '<div class="time">' + event.TIME + '</div>',
         '</div>'
@@ -142,8 +144,11 @@ function onCSV(res) {
             '2015'
         ].join(' '));
 
+        // Default
+        var endtime = e.ENDTIMES ? e.ENDTIMES : e.START_UTIME.getHours() + 2;
+
         e.END_UTIME = new Date([
-            e.ENDTIMES,
+            endtime,
             'May',
             e.DAYS,
             '2015'
@@ -227,7 +232,7 @@ function updateSelectedDay(day) {
 }
 
 function updateDaySelectorToday() {
-    var day = (new Date()).getDate();
+    var day = todayDate.getDate();
     $date.filter('[data-date="' + day + '"]').find('.day').text('Today');
     $date.filter('[data-date="' + (day + 1) + '"]').find('.day').text('Tomorrow');
 }
@@ -243,7 +248,7 @@ google.maps.event.addDomListener(window, 'load', function () {
         }
 
         if (params.date) {
-            todayDate = new Date(params.date);
+            todayDate = new Date(parseInt(params.date));
         }
 
         if (typeof params.id !== 'undefined') {
