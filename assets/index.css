@@ -9,13 +9,20 @@
     font-weight : bold;
 }
 
-body {
+html {
     overflow : hidden;
-    position : relative;
-    width  : 100%;
     height : 100%;
-    padding  : 0;
-    margin   : 0;
+}
+
+body,
+body > #viewport {
+    overflow         : hidden;
+    position         : relative;
+    width            : 100%;
+    height           : 100%;
+    padding          : 0;
+    margin           : 0;
+    background-color : #282828;
 }
 
 * {
@@ -37,7 +44,7 @@ body {
 #details,
 #main .header,
 #main .when {
-    -webkit-transition : transform 0.4s;
+    -webkit-transition : -webkit-transform 0.4s;
     -moz-transition    : transform 0.4s;
     -ms-transition     : transform 0.4s;
     -o-transition      : transform 0.4s;
@@ -177,14 +184,15 @@ body.show-details #details {
 }
 
 #details .content {
-    position   : absolute;
-    top        : 0;
-    left       : 0;
-    right      : 0;
-    bottom     : 144px;
-    overflow   : auto;
-    padding    : 24px;
-    text-align : center;
+    position                   : absolute;
+    top                        : 0;
+    left                       : 0;
+    right                      : 0;
+    bottom                     : 144px;
+    overflow                   : auto;
+    padding                    : 24px;
+    text-align                 : center;
+    -webkit-overflow-scrolling : touch;
 }
 
 #details .content div {
@@ -264,27 +272,28 @@ body.show-details #details {
 }
 
 #main .when .days {
-    position    : absolute;
-    top         : 0;
-    left        : 0;
-    right       : -16px;
-    bottom      : -16px;
-    overflow    : auto;
-    white-space : nowrap;
-    padding     : 0 16px 0 16px;
+    position                   : absolute;
+    top                        : 0;
+    left                       : 0;
+    right                      : -16px;
+    bottom                     : -16px;
+    overflow                   : auto;
+    white-space                : nowrap;
+    padding                    : 0 16px 0 16px;
+    -webkit-overflow-scrolling : touch;
 }
 
 #main .when .exact-days {
     position : absolute;
     top      : 0;
     left     : 0;
-    width    : 605px;
+    width : 1300px;
     height   : 48px;
 }
 
 #main .when .date {
     float        : left;
-    width        : 48px;
+    width : 96px;
     height       : 48px;
     position     : relative;
     cursor       : pointer;

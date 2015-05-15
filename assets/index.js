@@ -1,3 +1,6 @@
+var todayDate;
+var deepLinkId;
+
 var $body;
 var $mapCover;
 
@@ -74,7 +77,23 @@ function onData() {
         event.index = index;
     });
 
-    showDayEvents(15);
+    showDeepLink();
+}
+
+function showDeepLink() {
+    var deepLinkedItem;
+    if (typeof deepLinkId !== 'undefined') {
+        deepLinkedItem = dsmap.eventData.filter(function (e) {
+            return e.EVENTID.toString() === deepLinkId.toString();
+        })[0];
+
+        if (deepLinkedItem) {
+            showDetails(deepLinkedItem.index);
+            showDayEvents(deepLinkedItem.DAYS);
+        }
+    } else {
+        showDayEvents(todayDate.getDate());
+    }
 }
 
 function onCSV(res) {
@@ -88,7 +107,7 @@ function onCSV(res) {
         if (days.length > 1) {
             days.forEach(function (day) {
                 var clonedEvent = $.extend({}, e, {
-                    DAYS: day,
+                    DAYS    : day,
                     STARTTIMES: starttimes[0],
                     ENDTIMES: endtimes[0]
                 });
@@ -102,7 +121,7 @@ function onCSV(res) {
                 var dayValue = j > 0 ? parseInt(days[0]) + 1 : days[0];
 
                 var clonedEvent = $.extend({}, e, {
-                    DAYS: dayValue,
+                    DAYS    : dayValue,
                     STARTTIMES: starttimes[j],
                     ENDTIMES: endtimes[j]
                 });
@@ -140,13 +159,15 @@ function onCSV(res) {
 }
 
 var LINK = {
-    TWITTER               : 'https://twitter.com/home?status=Going%20to%20!!!%20%23ds15%20%23digitalshoreditch',
+    TWITTER: 'https://twitter.com/home?status=Going%20to%20!!!%20http://digitalshoreditch.thisplace.com/?id=???%20%23digitalshoreditch',
     FACEBOOK              : 'https://www.facebook.com/sharer/sharer.php?u=Going%20to%20!!!%20%23ds15%20%23digitalshoreditch',
     GOOGLE_MAPS           : 'https://maps.google.com/?q=@__END__',
     GOOGLE_MAPS_DIRECTIONS: 'http://maps.google.com/maps?daddr=__END__'
 };
 
 function showDetails(index) {
+    index = parseInt(index);
+
     $body.addClass('show-details');
 
     var e = dsmap.eventData[index];
@@ -154,12 +175,17 @@ function showDetails(index) {
     $detailsTitle.text(e.EVENT);
     $detailsTime.text(e.TIME);
     $detailsLocation.text(e.LOCATION);
-    $detailsAbout.text(e.ABOUT);
+    $detailsAbout.html(e.ABOUT);
 
-    $detailsShareLink.attr('href', LINK.TWITTER.replace('!!!', e.EVENT));
+    $detailsShareLink.attr(
+        'href',
+        LINK.TWITTER
+            .replace('!!!', e.EVENT)
+            .replace('???', e.EVENTID)
+    );
 
     var eventLatLong = e.LAT + ',' + e.LONG;
-    var userLatLong = dsmap.userMarker.getPosition().toUrlValue();
+    var userLatLong = dsmap.userMarker && dsmap.userMarker.getPosition().toUrlValue();
     var mapsLink;
 
     if (userLatLong) {
@@ -192,17 +218,37 @@ function showDayEvents(day) {
     });
 
     $listingResults.html(filteredEventsHTML);
+    updateSelectedDay(day);
+}
+
+function updateSelectedDay(day) {
+    $date.removeClass('selected');
+    $date.filter('[data-date="' + day + '"]').addClass('selected');
+}
+
+function updateDaySelectorToday() {
+    var day = (new Date()).getDate();
+    $date.filter('[data-date="' + day + '"]').find('.day').text('Today');
+    $date.filter('[data-date="' + (day + 1) + '"]').find('.day').text('Tomorrow');
 }
 
 google.maps.event.addDomListener(window, 'load', function () {
-    var querystring = location.search.replace('?', '');
+    todayDate = new Date();
 
-    switch (querystring) {
-        case 'clearlocalstorage':
+    var params = querystring.toDict(location.search.substr(1));
+    if (params) {
+        if (params.clearlocalstorage) {
             localStorage.clear();
-            break;
-        case '':
+            delete dsmap.eventData;
+        }
 
+        if (params.date) {
+            todayDate = new Date(params.date);
+        }
+
+        if (typeof params.id !== 'undefined') {
+            deepLinkId = params.id;
+        }
     }
 
     $body = $('body');
@@ -267,8 +313,6 @@ google.maps.event.addDomListener(window, 'load', function () {
     $listingCloseButton.on('click', $body.removeClass.bind($body, 'show-listing'));
 
     $date.on('click', function () {
-        $date.removeClass('selected');
-        this.classList.add('selected');
         var day = this.getAttribute('data-date');
         showDayEvents(day);
     });
@@ -277,4 +321,6 @@ google.maps.event.addDomListener(window, 'load', function () {
         $body.addClass('show-details');
         showDetails(this.getAttribute('data-index'));
     });
+
+    updateDaySelectorToday();
 });
