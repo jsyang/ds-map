@@ -227,7 +227,7 @@ function showDayEvents(day) {
         filteredEventsHTML += eventToResultHTML(result, i);
     });
 
-    filteredEventsHTML += '<a href="about/"><div class="about-link">About this app</div></a>';
+    filteredEventsHTML += '<a href="about/"><div class="about-link">Read more about this app</div></a>';
 
     $listingResults.html(filteredEventsHTML);
     updateSelectedDay(day);
@@ -329,8 +329,10 @@ google.maps.event.addDomListener(window, 'load', function () {
         var showingListing = $body.hasClass('show-listing');
         if (showingListing) {
             $listingCloseButton.text(window.innerWidth < 1024 ? 'Go back to the map' : 'Hide this list');
+            $listingCloseButton.addClass('active');
         } else {
             $listingCloseButton.text('Explore these events');
+            $listingCloseButton.removeClass('active');
         }
     });
 
