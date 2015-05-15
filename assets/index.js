@@ -40,7 +40,6 @@ function eventToResultHTML(event) {
 }
 
 function getEventsByDay(day) {
-
     var dayData = dsmap.eventData;
 
     if (day !== 'all') {
@@ -216,11 +215,13 @@ function showDayEvents(day) {
     events.forEach(function (e) {
         e.marker.setMap(dsmap.map);
     });
-    var filteredEventsHTML = '<a href="about/"><div class="about-link">About this app</div></a>';
+    var filteredEventsHTML = '';
 
     events.forEach(function showResult(result, i) {
         filteredEventsHTML += eventToResultHTML(result, i);
     });
+
+    filteredEventsHTML += '<a href="about/"><div class="about-link">About this app</div></a>';
 
     $listingResults.html(filteredEventsHTML);
     updateSelectedDay(day);
@@ -229,6 +230,9 @@ function showDayEvents(day) {
 function updateSelectedDay(day) {
     $date.removeClass('selected');
     $date.filter('[data-date="' + day + '"]').addClass('selected');
+    if (window.innerWidth >= 1024) {
+        $date.parent().parent().scrollLeft(96 * (parseInt(day) - 15));
+    }
 }
 
 function updateDaySelectorToday() {
@@ -314,8 +318,15 @@ google.maps.event.addDomListener(window, 'load', function () {
     dsmap.userMarker = new GeolocationMarker(map);
 
     $mapCover.on('click', $body.removeClass.bind($body, 'show-details'));
-    $showListingButton.on('click', $body.addClass.bind($body, 'show-listing'));
-    $listingCloseButton.on('click', $body.removeClass.bind($body, 'show-listing'));
+    $listingCloseButton.on('click', function () {
+        $body.toggleClass('show-listing');
+        var showingListing = $body.hasClass('show-listing');
+        if (showingListing) {
+            $listingCloseButton.text(window.innerWidth < 1024 ? 'Go back to the map' : 'Hide this list');
+        } else {
+            $listingCloseButton.text('Explore these events');
+        }
+    });
 
     $date.on('click', function () {
         var day = this.getAttribute('data-date');
