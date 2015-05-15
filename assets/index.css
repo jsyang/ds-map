@@ -181,6 +181,14 @@ body.show-listing #main .when {
     background-color : #ffffff;
 }
 
+#listing #results .result {
+    -webkit-transition : all 0.4s;
+    -moz-transition    : all 0.4s;
+    -ms-transition     : all 0.4s;
+    -o-transition      : all 0.4s;
+    transition         : all 0.4s;
+}
+
 #listing #results .result.selected {
     border-right : 4px solid #ed1a56;
 }
@@ -197,7 +205,6 @@ body.show-listing #main .when {
     font-weight   : bold;
     border-bottom : 0;
     color         : #ed1a56;
-    text-align    : lef;
     font-size     : 20px;
     line-height   : 64px;
     left          : 0px;
@@ -206,10 +213,6 @@ body.show-listing #main .when {
 
 #listing #results a {
     text-decoration : none;
-}
-
-#listing #results .result[data-expired="true"] {
-    color : #cdcdcd;
 }
 
 #listing #results .result .title {
@@ -225,6 +228,38 @@ body.show-listing #main .when {
 #listing #results .result .time {
     font-size : 12px;
     color     : #999;
+}
+
+#listing #results .result[data-expired="true"] > div {
+    color : #cdcdcd;
+}
+
+/** About **/
+
+#listing #results .blurb {
+    padding            : 12px 16px 12px 0;
+    border-bottom      : 1px solid #eee;
+    margin-left        : 24px;
+    -webkit-transition : all 0.4s;
+    -moz-transition    : all 0.4s;
+    -ms-transition     : all 0.4s;
+    -o-transition      : all 0.4s;
+    transition         : all 0.4s;
+    max-height         : 0;
+    overflow           : hidden;
+
+}
+
+body.show-about #listing #results .blurb {
+    max-height : 1200px;
+}
+
+body.show-about #listing #results .result {
+    min-height : 0;
+    padding    : 0;
+    border     : 0;
+    max-height : 0;
+    overflow   : hidden;
 }
 
 /** Event Details **/
@@ -432,7 +467,6 @@ body.show-details #details {
     right    : 0;
 }
 
-#main #map .gmnoprint,
 #main #map .gm-style-cc,
 #main #map a[target="_blank"] img {
     display : none;
