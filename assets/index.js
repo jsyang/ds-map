@@ -221,7 +221,7 @@ function showDayEvents(day) {
         filteredEventsHTML += eventToResultHTML(result, i);
     });
 
-    filteredEventsHTML += '<a href="about/"><div class="about-link">About this app</div></a>';
+    filteredEventsHTML += '<a href="about/"><div class="about-link">Read more about this app</div></a>';
 
     $listingResults.html(filteredEventsHTML);
     updateSelectedDay(day);
