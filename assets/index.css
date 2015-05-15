@@ -76,6 +76,8 @@ body.show-details #map-cover {
 /** Event listing **/
 
 #listing {
+    margin-top : -48px;
+    z-index    : 2;
     -webkit-transform : translate(0px, calc(100%));
     -moz-transform    : translate(0px, calc(100%));
     -ms-transform     : translate(0px, calc(100%));
@@ -344,7 +346,7 @@ body.show-details #details {
 #main #map {
     position : absolute;
     top      : 84px;
-    bottom   : 48px;
+    bottom : 0;
     left     : 0;
     right    : 0;
 }
@@ -356,6 +358,7 @@ body.show-details #details {
 }
 
 #main .show-listing-button {
+    display : none;
     position         : absolute;
     bottom           : 0;
     left             : 0;
@@ -365,4 +368,12 @@ body.show-details #details {
     background-color : #4a4a4a;
     line-height      : 48px;
     text-align       : center;
+}
+
+/** Non-mobile **/
+
+@media only screen and (min-width : 1024px) {
+    #listing {
+
+    }
 }
