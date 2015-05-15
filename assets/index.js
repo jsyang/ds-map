@@ -382,7 +382,7 @@ google.maps.event.addDomListener(window, 'load', function () {
 
     updateDaySelectorToday();
 
-    var path = location.pathname.split('/')[0];
+    var path = location.pathname.split('/')[1];
     if (path === 'about') {
         $body.addClass('show-listing');
         updateListingButton();

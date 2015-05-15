@@ -1,3 +1,167 @@
 <html>
-About This Place
+<head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
+    <link rel="stylesheet" href="/assets/index.css">
+    <script src="/assets/querystring.js"></script>
+    <script src="/assets/jquery.min.js"></script>
+    <script src="/assets/jquery.scrollTo.min.js"></script>
+    <script src="/assets/papaparse.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
+    <script src="/assets/geolocationmarker.min.js"></script>
+    <title>Digital Shoreditch Open House Guide</title>
+    <meta name="Description" content="Digital Shoreditch Open House Guide">
+    <link rel="icon" type="image/png" href="/favicon.ico">
+</head>
+<body>
+<div id="viewport">
+    <div id="main">
+        <div id="map"></div>
+        <div class="header">Digital Shoreditch Open House Guide</div>
+        <div class="when">
+            <div class="days">
+                <div class="exact-days">
+                    <div class="date" data-date="all">
+                        <div class="day">All</div>
+                        <div></div>
+                    </div>
+                    <div class="date selected" data-date="15">
+                        <div class="day">Fri</div>
+                        <div>15</div>
+                    </div>
+                    <div class="date" data-date="16">
+                        <div class="day">Sat</div>
+                        <div>16</div>
+                    </div>
+                    <div class="date" data-date="17">
+                        <div class="day">Sun</div>
+                        <div>17</div>
+                    </div>
+                    <div class="date" data-date="18">
+                        <div class="day">Mon</div>
+                        <div>18</div>
+                    </div>
+                    <div class="date" data-date="19">
+                        <div class="day">Tue</div>
+                        <div>19</div>
+                    </div>
+                    <div class="date" data-date="20">
+                        <div class="day">Wed</div>
+                        <div>20</div>
+                    </div>
+                    <div class="date" data-date="21">
+                        <div class="day">Thu</div>
+                        <div>21</div>
+                    </div>
+                    <div class="date" data-date="22">
+                        <div class="day">Fri</div>
+                        <div>22</div>
+                    </div>
+                    <div class="date" data-date="23">
+                        <div class="day">Sat</div>
+                        <div>23</div>
+                    </div>
+                    <div class="date" data-date="24">
+                        <div class="day">Sun</div>
+                        <div>24</div>
+                    </div>
+                    <div class="date" data-date="25">
+                        <div class="day">Mon</div>
+                        <div>25</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="map-cover"></div>
+
+    <div id="listing">
+        <div class="close-button">Explore these events</div>
+        <div id="results">
+            <a class="about">
+                <div class="about-link">About this app</div>
+                <div class="blurb">
+                    <p>
+                        When This Place registered an open house event for Digital Shoreditch 2015, some of us went on
+                        the programme website to find a schedule of other open houses to see what would interest us. We
+                        wanted to be able to see what was on for a particular day and where it was. The idea to create a
+                        simple open house guide came up when we couldn’t easily do this.
+                    </p>
+
+                    <p>
+                        Everything started when we scraped the data from the table with ExcellentExport.js and geocoded
+                        the addresses with GPS Visualizer's Quick Geocoder.
+                    </p>
+
+                    <p><a href="https://medium.com/this-place" target="_blank">Read more about this project and others
+                        through our Medium.</a></p>
+
+                    <p> It made sense to develop a tool to make it easier to explore Digital Shoreditch because hit
+                        three birds with one stone:
+                    </p>
+
+                    <ol>
+                        <li>
+                            We’d have an additional project (to show publicly what we do) for Digital Shoreditch that
+                            wasn’t
+                            under client NDA
+                        </li>
+                        <li>
+                            It’s a nice PR win and doing this to help fellow attendees makes us feel good
+
+                        </li>
+                        <li>
+                            It’s a small, easy, and fun side project that was a nice distraction from our daily work
+
+                        </li>
+                    </ol>
+                    <p>This Place specializes in digital UX and design.</p>
+
+                    <p>Visit us at <a href="http://thisplace.com" target="_top">ThisPlace.com</a> to find out how we can
+                        help with your next project.</p>
+                </div>
+            </a>
+            <a href="http://thisplace.com" target="_top">
+                <div class="logo"><img src="/assets/this-place-logo.png"></div>
+            </a>
+        </div>
+    </div>
+
+    <div id="details">
+        <div class="content">
+            <img src="">
+
+            <div class="title"></div>
+            <div class="time"></div>
+            <div class="location"></div>
+            <div class="about"></div>
+        </div>
+        <div class="actions">
+            <a class="share-link" target="_blank">
+                <div class="share">Share on Twitter</div>
+            </a>
+            <a class="maps-link" target="_blank">
+                <div class="gmaps">Get Google Maps Directions</div>
+            </a>
+        </div>
+    </div>
+</div>
+</body>
+<script src="/assets/index.js"></script>
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-63040943-1', 'auto');
+    ga('send', 'pageview');
+</script>
 </html>
