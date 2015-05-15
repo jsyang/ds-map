@@ -216,7 +216,7 @@ function showDayEvents(day) {
     events.forEach(function (e) {
         e.marker.setMap(dsmap.map);
     });
-    var filteredEventsHTML = '';
+    var filteredEventsHTML = '<a href="about/"><div class="about-link">About this app</div></a>';
 
     events.forEach(function showResult(result, i) {
         filteredEventsHTML += eventToResultHTML(result, i);

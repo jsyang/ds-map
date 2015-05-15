@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b9f4a39e-5ba3-4e2f-8b28-a54d9fac410f" name="Default" comment="Add &quot;today&quot; and &quot;tomorrow&quot; on day selectors&#10;fixed a bunch of bugs, add deep linking">
+    <list default="true" id="b9f4a39e-5ba3-4e2f-8b28-a54d9fac410f" name="Default" comment="Add the about link">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/index.css" afterPath="$PROJECT_DIR$/assets/index.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/index.js" afterPath="$PROJECT_DIR$/assets/index.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
@@ -40,8 +40,8 @@
           <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/assets/index.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.77205884">
-                  <caret line="35" column="55" selection-start-line="35" selection-start-column="55" selection-end-line="35" selection-end-column="55" />
+                <state vertical-scroll-proportion="0.88235295">
+                  <caret line="222" column="7" selection-start-line="222" selection-start-column="7" selection-end-line="222" selection-end-column="7" />
                   <folding />
                 </state>
               </provider>
@@ -74,8 +74,8 @@
           <file leaf-file-name="index.css" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/assets/index.css">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.424196">
-                  <caret line="128" column="25" selection-start-line="128" selection-start-column="25" selection-end-line="128" selection-end-column="25" />
+                <state vertical-scroll-proportion="0.5865237">
+                  <caret line="137" column="13" selection-start-line="137" selection-start-column="13" selection-end-line="137" selection-end-column="13" />
                   <folding />
                 </state>
               </provider>
@@ -106,8 +106,8 @@
         <option value="$PROJECT_DIR$/assets/geolocationmarker.min.js" />
         <option value="$PROJECT_DIR$/assets/querystring.js" />
         <option value="$PROJECT_DIR$/index.html" />
-        <option value="$PROJECT_DIR$/assets/index.js" />
         <option value="$PROJECT_DIR$/assets/index.css" />
+        <option value="$PROJECT_DIR$/assets/index.js" />
       </list>
     </option>
   </component>
@@ -289,7 +289,13 @@
       <option name="project" value="LOCAL" />
       <updated>1431690818228</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Add grayed out expired events">
+      <created>1431693638609</created>
+      <option name="number" value="00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1431693638609</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -334,7 +340,8 @@
     <MESSAGE value="Add details pane" />
     <MESSAGE value="Add share out link and google maps link" />
     <MESSAGE value="Add &quot;today&quot; and &quot;tomorrow&quot; on day selectors&#10;fixed a bunch of bugs, add deep linking" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add &quot;today&quot; and &quot;tomorrow&quot; on day selectors&#10;fixed a bunch of bugs, add deep linking" />
+    <MESSAGE value="Add grayed out expired events" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add grayed out expired events" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -382,18 +389,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assets/index.css">
+    <entry file="file://$PROJECT_DIR$/assets/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.424196">
-          <caret line="128" column="25" selection-start-line="128" selection-start-column="25" selection-end-line="128" selection-end-column="25" />
+        <state vertical-scroll-proportion="0.88235295">
+          <caret line="222" column="7" selection-start-line="222" selection-start-column="7" selection-end-line="222" selection-end-column="7" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assets/index.js">
+    <entry file="file://$PROJECT_DIR$/assets/index.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.77205884">
-          <caret line="35" column="55" selection-start-line="35" selection-start-column="55" selection-end-line="35" selection-end-column="55" />
+        <state vertical-scroll-proportion="0.5865237">
+          <caret line="137" column="13" selection-start-line="137" selection-start-column="13" selection-end-line="137" selection-end-column="13" />
           <folding />
         </state>
       </provider>
